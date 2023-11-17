@@ -1,0 +1,16 @@
+{
+    "manifest_version": 3,
+    "name": "Countdown timer by Michal",
+    "version": "1.0.0",
+    "description": "A Countdown Timer is a JavaScript script used on websites to display and count down from a specified time, often creating a sense of urgency and triggering actions upon reaching zero.",
+    "icons": {
+        "128": "logos/logo128.png"
+    },
+    "permissions": [
+        "storage",
+        "notifications"
+    ],
+    "chrome_url_overrides": {
+        "newtab": "index.html"
+    }
+}
