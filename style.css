@@ -15,26 +15,208 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-.padding-10 {
-    padding: 10px;
-}
-.padding-20 {
-    padding: 20px;
-}
+.padding-10 {padding: 10px;}
+.padding-20 {padding: 20px;}
 
-.font-roboto {
-    font-family: 'Roboto', sans-serif;
-}
+.font-roboto {font-family: 'Roboto', sans-serif;}
 
-.border-radius-10 {
-    border-radius: 10px;
-}
-
-#main {
-    background-color: white;
-}
+.border-radius-10 {border-radius: 10px;}
 
 .input-date {
-    width: 300px;
     text-align: center;
+}
+
+:root {
+    --myGreen: #008000; 
+    --myYellow: #ffff00;
+    --myGold: #cccc00;
+    --myBlue: #25A1FF;
+    --myLime: #00FF00;
+    --mySilver: #C0C0C0;
+    --myRed: #FF4500;
+    --myWhite: #FFFFF0;
+    --myBlack: #131312;
+    --myGrey: #0C0033;
+    --fiverrGreen: #1DBF73;
+    --fiverBlack: #1B1B1B;
+
+    --buttonBorderRadius: 10px;
+
+    --xs-width: 1080px;
+    --sm-width: 1080px;
+    --md-width: 1080px;
+    --lg-width: 1080px;
+    --xl-width: 1080px;
+    --xxl-width: 1080px;
+}
+
+/* Universal classes */
+.bg-myGreen                 {background-color: var(--myGreen);}
+.bg-myYellow                {background-color: var(--myYellow);}
+.bg-myGold                  {background-color: var(--myGold);}
+.bg-myBlue                  {background-color: var(--myBlue);}
+.bg-myLime                  {background-color: var(--myLime);}
+.bg-mySilver                {background-color: var(--mySilver);}
+.bg-myRed                   {background-color: var(--myRed);}
+.bg-myWhite                 {background-color: var(--myWhite);}
+.bg-myBlack                 {background-color: var(--myBlack);}
+.bg-myGrey                  {background-color: var(--myGrey);}
+.bg-fiverrGreen             {background-color: var(--fiverrGreen);}
+.bg-fiverrBlack             {background-color: var(--fiverBlack);}
+
+.border-myGreen             {border-color: var(--myGreen);}
+.border-myYellow            {border-color: var(--myYellow);}
+.border-myGold              {border-color: var(--myGold);}
+.border-myBlue              {border-color: var(--myBlue);}
+.border-myLime              {border-color: var(--myLime);}
+.border-mySilver            {border-color: var(--mySilver);}
+.border-myRed               {border-color: var(--myRed);}
+.border-myWhite             {border-color: var(--myWhite);}
+.border-myBlack             {border-color: var(--myBlack);}
+.border-myGrey              {border-color: var(--myGrey);}
+.border-fiverrGreen         {border-color: var(--fiverrGreen);}
+.border-fiverrBlack         {border-color: var(--fiverBlack);}
+
+.text-myGreen               {color:var(--myGreen);}
+.text-myYellow              {color:var(--myYellow);}
+.text-myGold                {color:var(--myGold);}
+.text-myBlue                {color:var(--myBlue);}
+.text-myLime                {color:var(--myLime);}
+.text-mySilver              {color:var(--mySilver);}
+.text-myRed                 {color:var(--myRed);}
+.text-myWhite               {color:var(--myWhite);}
+.text-myBlack               {color:var(--myBlack);}
+.text-myGrey                {color:var(--myGrey);}
+.text-fiverrGreen           {color:var(--fiverrGreen);}
+.text-fiverrBlack           {color:var(--fiverBlack);}
+
+.rotate-left                {transform: rotate(-5deg);transform-origin: top right;}
+.rotate-right               {transform: rotate(5deg);transform-origin: top left;}
+
+.pic-octagon                {clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);}
+.pic-right-trapezium        {clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);}
+.pic-left-trapezium         {clip-path: polygon(0 0, 75% 0, 100% 100%, 25% 100%);}
+.pic-cross                  {clip-path: polygon(0% 15%, 15% 15%, 15% 0%, 85% 0%, 85% 15%, 100% 15%, 100% 85%, 85% 85%, 85% 100%, 15% 100%, 15% 85%, 0% 85%);}
+.pic-circle                 {clip-path: circle(50% at 50% 50%);}
+
+.cursor-pointer             {cursor: pointer;}
+.cursor-wait                {cursor: wait;}
+
+.font-proximaNova           {font-family: 'proximaNova', sans-serif;}
+
+.top-sticky                 {position: sticky; top: 0; z-index: 100; margin-top: 0px;}
+.bottom-sticky              {position: sticky; bottom: 0; z-index: 100;}
+
+.bg-container               {background-position: center; background-size: cover;}
+
+.text-middle                {display: flex; flex-direction: column; justify-content: center; align-items: center;}
+
+/* Buttons */
+
+.myButton {
+    padding: 10px 30px 10px 30px;
+    border-radius: 10px;
+    width: auto;
+    height: auto;
+    display: flex; 
+    flex-direction: row; 
+    justify-content: center; 
+    align-items: center;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.myButton:hover {
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    transform: translateY(2px);
+}
+
+.myButton > img {
+  max-width: 60px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.myButton-myGreen           {background-color: var(--myGreen);}
+.myButton-myYellow          {background-color: var(--myYellow);}
+.myButton-myGold            {background-color: var(--myGold);}
+.myButton-myBlue            {background-color: var(--myBlue);}
+.myButton-myLime            {background-color: var(--myLime);}
+.myButton-mySilver          {background-color: var(--mySilver);}
+.myButton-myRed             {background-color: var(--myRed);}
+.myButton-myWhite           {background-color: var(--myWhite);}
+.myButton-myBlack           {background-color: var(--myBlack);}
+.myButton-myGrey            {background-color: var(--myGrey);}
+.myButton-fiverrGreen       {background-color: var(--fiverrGreen);}
+.myButton-fiverBlack        {background-color: var(--fiverBlack);}
+
+.myButton-callToAction      {animation: pulse 2s infinite;}
+
+.pre-line                   {white-space: pre-line;}
+
+/* Animations */
+
+@keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+/* Breakpoints based on bootstrap */
+
+.main-block{
+    width:          100%; 
+    height:         auto; 
+    border-width:   1px; 
+    border-style:   solid;
+    -webkit-box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.75);
+}
+
+#cdbm_timers_active{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.cdbm_timers_singleTimer{
+    flex-grow: 1;
+    flex-basis: 1000;
+    display: flex;
+    flex-direction: column;
+    border-width:   1px; 
+    border-style:   solid;
+}
+
+.column{
+    display: flex;
+    flex-direction: column;
+}
+
+@media all and (min-width: 576px) { /*Rozmiar SM*/
+    .main-block{width:550px;}
+}
+
+@media all and (min-width: 768px) { /*Rozmiar MD*/
+    .main-block{width:750px;}
+}
+
+@media all and (min-width: 992px) { /*Rozmiar LG*/
+    .main-block{width:950px;}
+}
+
+@media all and (min-width: 1200px) { /*Rozmiar XL*/
+    .main-block{width:1100px;}
+}
+
+@media all and (min-width: 1400px) { /*Rozmiar XXL*/
+    
 }
