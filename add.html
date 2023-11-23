@@ -3,13 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My New Tab</title>
+    <title>Add new timer</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="singleTimer">
-        
+    <div class="bg-myWhite padding-10 border-radius-10 main-block">
+        Add new timer
+        <table>
+            <tr>
+                <td class="column">
+                    <span>
+                        Timer title
+                    </span>
+                    <span class="smaller-font">
+                        Maximum 20 characters
+                    </span>
+                </td>
+                <td>
+                    <input type="text" id="title" required class="padding-10 border-radius-10" maxlength="50" placeholder="For ex. winter solstice">
+                </td>
+                <td id="title_length">
+                    0/20
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Start date:
+                </td>
+                <td>
+                    <input type="date" id="start_date" required class="padding-10 border-radius-10 dates">
+                </td>
+                <td>
+                    <button class="padding-10 border-radius-10">Now</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    End date:
+                </td>
+                <td colspan="2">
+                    <input type="date" id="end_date" required class="padding-10 border-radius-10 dates">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <label>
+                        With time: <input type="checkbox" id="timeFieldChanger">
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td class="column">
+                    <span>
+                        Description:
+                    </span>
+                    <span class="smaller-font">
+                        Maximum 100 characters
+                    </span>
+                </td>
+                <td>
+                    <textarea id="description" class="padding-10 border-radius-10"></textarea>
+                </td>
+                <td id="description_length">
+                    0/100
+                </td>
+            </tr>
+        </table>
+        <button id="add" class="padding-10 border-radius-10">
+            <img src="img/happy.svg">
+            Add
+        </button>
+        <button id="clear" class="padding-10 border-radius-10">
+            <img src="img/clear.svg" alt="">
+            Clear
+        </button>
     </div>
     <script src="scripts.js"></script>
+    <script src="add_scripts.js"></script>
 </body>
 </html>

@@ -1,23 +1,17 @@
 const testPattern = [
     {
-        "title": "Test timerek",
-        "start_date": 1641573660000,
-        "end_date": 1641746400000,
-        "show_time": false,
-        "description": "Test"
-    },
-    {
         "title": "Test timerek 1",
-        "start_date": 1641573660000,
-        "end_date": 1641746400000,
+        "start_date": 1700670720000, 
+        "end_date": 1701361920000,
         "show_time": false,
-        "description": "Test"
+        "description": "Test",
+        "active": true
     }
 ]
 
 const borderColors = [
     "border-myGreen", 
-    "border-myYellow", 
+    "border-myYellow",  
     "border-myGold", 
     "border-myBlue", 
     "border-myLime", 
@@ -80,15 +74,6 @@ const triggerChromeNotification = (notificationMessage) => {
 //Other functions
 const getRandomIndex = (array) => Math.floor(Math.random() * array.length);
 
-const changeDateInputType = fieldID => {
-    const field = document.getElementById(fieldID);
-    if (field.type === "datetime-local") {
-        field.type = "date";
-    } else {
-        field.type = "datetime-local";
-    }
-};
-
 const convertTimestampToDaysHoursMinutes = timestamp => {
     const oneDay = 24 * 60 * 60 * 1000;
     const oneHour = 60 * 60 * 1000;
@@ -104,21 +89,3 @@ const convertTimestampToDaysHoursMinutes = timestamp => {
         minutes
     };
 }
-
-//Triggers
-window.addEventListener("load", () => {
-    const activeTimers = document.getElementById("cdbm_timers_active");
-    
-    testPattern.forEach((e,i) => {
-        const mainTimerDiv = document.createElement("div");
-            const borderColor = getRandomIndex(borderColors);
-
-            mainTimerDiv.classList.add("cdbm_timers_singleTimer", "padding-10", "border-radius-10", borderColors[borderColor]);
-            const timerTitle = document.createElement("span");
-            timerTitle.setAttribute("id", "cdbm_timers_singleTimer-"+i);
-            timerTitle.innerText = e.title;
-        mainTimerDiv.appendChild(timerTitle);
-             
-        activeTimers.appendChild(mainTimerDiv);
-    });
-})

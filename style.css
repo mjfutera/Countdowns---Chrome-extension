@@ -155,6 +155,11 @@ body {
 
 .pre-line                   {white-space: pre-line;}
 
+.smaller-font               {font-size: 0.65em;}
+
+input, textarea{width: 200px;}
+
+
 /* Animations */
 
 @keyframes pulse {
