@@ -1,12 +1,3 @@
-const changeDateInputType = fieldID => {
-    const field = document.getElementById(fieldID);
-    if (field.type === "datetime-local") {
-        field.type = "date";
-    } else {
-        field.type = "datetime-local";
-    }
-};
-
 // document.getElementById("add").addEventListener("click", () => {
 //     const title = document.getElementById("title").value;
 //     const startDateField = document.getElementById("start_date").value;
@@ -56,7 +47,12 @@ document.getElementById("description").addEventListener("input", () => {
     document.getElementById("description_length").innerText = `${descriptionInput.value.length}/${maxLength}`;
 });
 
-document.getElementById("add").addEventListener("mouseover", () => {
-    document.getElementById("add").disabled=true;
+document.getElementById("add").addEventListener("mouseenter", () => {
+    const button = document.getElementById("add");
+    if(button.disabled){
+        button.disabled = false;
+    } else {
+        button.disabled = true;
+    }
 })
 

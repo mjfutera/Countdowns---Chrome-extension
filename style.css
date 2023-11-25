@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-  
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Vina+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+
 body {
     display: flex;
     flex-direction: column;
@@ -18,7 +20,14 @@ body {
 .padding-10 {padding: 10px;}
 .padding-20 {padding: 20px;}
 
-.font-roboto {font-family: 'Roboto', sans-serif;}
+.font-roboto                {font-family: 'Roboto', sans-serif;}
+.font-proximaNova           {font-family: 'proximaNova', sans-serif;}
+.font-vinaSans              {font-family: 'Vina Sans', sans-serif;}
+.font-oswald                {font-family: 'Oswald', sans-serif;}
+
+.font-size-large            {font-size: large;}
+.font-size-larger           {font-size: x-large;}
+.font-sieze-4counter        {font-size: 2em;}
 
 .border-radius-10 {border-radius: 10px;}
 
@@ -90,6 +99,8 @@ body {
 .text-fiverrGreen           {color:var(--fiverrGreen);}
 .text-fiverrBlack           {color:var(--fiverBlack);}
 
+.links                      {text-decoration: none;}
+
 .rotate-left                {transform: rotate(-5deg);transform-origin: top right;}
 .rotate-right               {transform: rotate(5deg);transform-origin: top left;}
 
@@ -102,8 +113,6 @@ body {
 .cursor-pointer             {cursor: pointer;}
 .cursor-wait                {cursor: wait;}
 
-.font-proximaNova           {font-family: 'proximaNova', sans-serif;}
-
 .top-sticky                 {position: sticky; top: 0; z-index: 100; margin-top: 0px;}
 .bottom-sticky              {position: sticky; bottom: 0; z-index: 100;}
 
@@ -111,6 +120,7 @@ body {
 
 .text-middle                {display: flex; flex-direction: column; justify-content: center; align-items: center;}
 
+.text-bold                  {font-weight: bold;}
 /* Buttons */
 
 .myButton {
@@ -186,15 +196,20 @@ input, textarea{width: 200px;}
     box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.75);
 }
 
-#cdbm_timers_active{
+#cdbm_timers{
     display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#cdbm_timers_active{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
     flex-wrap: wrap;
     gap: 10px;
 }
 
 .cdbm_timers_singleTimer{
-    flex-grow: 1;
-    flex-basis: 1000;
     display: flex;
     flex-direction: column;
     border-width:   1px; 
@@ -208,18 +223,30 @@ input, textarea{width: 200px;}
 
 @media all and (min-width: 576px) { /*Rozmiar SM*/
     .main-block{width:550px;}
+    #cdbm_timers_active{
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
 
 @media all and (min-width: 768px) { /*Rozmiar MD*/
     .main-block{width:750px;}
+    #cdbm_timers_active{
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media all and (min-width: 992px) { /*Rozmiar LG*/
     .main-block{width:950px;}
+    #cdbm_timers_active{
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 @media all and (min-width: 1200px) { /*Rozmiar XL*/
     .main-block{width:1100px;}
+    #cdbm_timers_active{
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 @media all and (min-width: 1400px) { /*Rozmiar XXL*/

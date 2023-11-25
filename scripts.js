@@ -1,10 +1,12 @@
+const timerLimit = 8;
+
 const testPattern = [
     {
-        "title": "Test timerek 1",
+        "title": "Przesilenie zimowe",
         "start_date": 1700670720000, 
-        "end_date": 1701361920000,
-        "show_time": false,
-        "description": "Test",
+        "end_date": 1700934462390,
+        "show_time": true,
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in dolor non arcu convallis auctor. Praesent lobortis dapibus lacus ac interdum. In auctor rhoncus accumsan. Sed ultricies tortor quis dui convallis, id viverra urna blandit. Nulla dolor erat, posuere quis sagittis quis, ornare ac tellus. Nunc eget turpis pretium ipsum gravida laoreet vel sit amet neque. Ut justo massa, gravida et lobortis eu, condimentum nec diam.",
         "active": true
     }
 ]
@@ -52,12 +54,13 @@ const removeFromChromeSyncStorage = async (key="cdbm_timers_storage") => {
     });
 };
 
+
 const triggerChromeNotification = (notificationMessage) => {
     const options = {
-      type: 'basic',
-      title: 'My Extension Notification',
+        type: 'basic',
+        title: 'My Extension Notification',
       message: notificationMessage,
-      iconUrl: 'path/to/icon.png', // Zmień ścieżkę do odpowiedniego obrazka ikony
+      iconUrl: 'logos/logo128.png', // Zmień ścieżkę do odpowiedniego obrazka ikony
     };
   
     chrome.notifications.create(options, (notificationId) => {
@@ -70,6 +73,7 @@ const triggerChromeNotification = (notificationMessage) => {
       }
     });
   };
+
 
 //Other functions
 const getRandomIndex = (array) => Math.floor(Math.random() * array.length);
@@ -89,3 +93,15 @@ const convertTimestampToDaysHoursMinutes = timestamp => {
         minutes
     };
 }
+
+const calculateProgress = (startTimestamp, endTimestamp, currentTimestamp) => {
+    const totalDuration = endTimestamp - startTimestamp;
+    const elapsedDuration = currentTimestamp - startTimestamp;
+
+    if (totalDuration <= 0 || elapsedDuration <= 0) {
+        return 0;
+    }
+
+    const progressPercentage = (elapsedDuration / totalDuration) * 100;
+    return Math.min(100, progressPercentage);
+};
