@@ -33,14 +33,15 @@ const timersUpdate = timers => {
             }
         }
     })
-    setTimeout(() => timersUpdate(timers), 15000);
+    setTimeout(() => timersUpdate(timers), 5000);
 }
 
 window.addEventListener("load", async () => {
+    // await saveToChromeSyncStorage(testPattern);
     const activeTimers = document.getElementById("cdbm_timers_active");
     const inactiveTimer = document.getElementById("cdbm_timers_inactive");
-    const timers = testPattern;
-    // const timers = await getFromChromeSyncStorage();
+    // const timers = testPattern;
+    const timers = await getFromChromeSyncStorage();
     
     const currentDate = new Date();
     const timestampNow = currentDate.getTime();
@@ -86,7 +87,6 @@ window.addEventListener("load", async () => {
                 hours.appendChild(hoursSubtitle);
                 mainTimerDiv.appendChild(hours);
 
-
                 const minutes = document.createElement("span");
                 minutes.classList.add("column");
                 const minutesNumber = document.createElement("span");
@@ -124,7 +124,7 @@ window.addEventListener("load", async () => {
         }
         
     });
-    if(timers.length<timerLimit){
+    if(timers.length<maxTimers){
         const addTimer = document.createElement("a");
         addTimer.href = "add.html";
         addTimer.classList.add("cdbm_timers_singleTimer", "padding-10", "border-radius-10", borderColors[getRandomIndex(borderColors)], "text-middle", "links");

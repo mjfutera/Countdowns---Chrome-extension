@@ -1,13 +1,17 @@
-const timerLimit = 8;
+const maxTimers = 8;
 
 const testPattern = [
     {
         "title": "Przesilenie zimowe",
         "start_date": 1700670720000, 
-        "end_date": 1700934462390,
+        "end_date": 1800954462390,
         "show_time": true,
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in dolor non arcu convallis auctor. Praesent lobortis dapibus lacus ac interdum. In auctor rhoncus accumsan. Sed ultricies tortor quis dui convallis, id viverra urna blandit. Nulla dolor erat, posuere quis sagittis quis, ornare ac tellus. Nunc eget turpis pretium ipsum gravida laoreet vel sit amet neque. Ut justo massa, gravida et lobortis eu, condimentum nec diam.",
-        "active": true
+        "active": true,
+        "newTab": {
+            "active": true,
+            "url": "http://onet.pl"
+        }
     }
 ]
 
@@ -54,7 +58,6 @@ const removeFromChromeSyncStorage = async (key="cdbm_timers_storage") => {
     });
 };
 
-
 const triggerChromeNotification = (notificationMessage) => {
     const options = {
         type: 'basic',
@@ -74,6 +77,37 @@ const triggerChromeNotification = (notificationMessage) => {
     });
   };
 
+  const createTab = async (url = "") => {
+    return new Promise((resolve) => {
+        chrome.tabs.create({ url }, (tab) => {
+            resolve(tab);
+        });
+    });
+};
+
+const checkIfAlarmExists = async (name) => {
+    return new Promise((resolve) => {
+        chrome.alarms.get(name, (alarm) => {
+            resolve(!!alarm);
+        });
+    });
+};
+
+const createAlarm = (name, delayInMinutes) => {
+    return new Promise((resolve) => {
+        chrome.alarms.create(name, { delayInMinutes }, () => {
+            resolve(true);
+        });
+    });
+};
+
+const removeAlarm = (name) => {
+    return new Promise((resolve) => {
+        chrome.alarms.clear(name, (wasCleared) => {
+            resolve(wasCleared);
+        });
+    });
+};
 
 //Other functions
 const getRandomIndex = (array) => Math.floor(Math.random() * array.length);

@@ -123,30 +123,18 @@ body {
 .text-bold                  {font-weight: bold;}
 /* Buttons */
 
-.myButton {
-    padding: 10px 30px 10px 30px;
-    border-radius: 10px;
-    width: auto;
-    height: auto;
+.flex                       {display: flex; flex-direction: row;}
+
+.myButton                   {
+    width: auto; 
     display: flex; 
     flex-direction: row; 
     justify-content: center; 
+    text-align: center; 
     align-items: center;
-    cursor: pointer;
-    font-size: 20px;
-    font-weight: bold;
 }
 
-.myButton:hover {
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-    transform: translateY(2px);
-}
-
-.myButton > img {
-  max-width: 60px;
-  margin-left: 5px;
-  margin-right: 5px;
-}
+.min-width-150              {min-width: 150px;}
 
 .myButton-myGreen           {background-color: var(--myGreen);}
 .myButton-myYellow          {background-color: var(--myYellow);}
@@ -161,13 +149,11 @@ body {
 .myButton-fiverrGreen       {background-color: var(--fiverrGreen);}
 .myButton-fiverBlack        {background-color: var(--fiverBlack);}
 
-.myButton-callToAction      {animation: pulse 2s infinite;}
-
 .pre-line                   {white-space: pre-line;}
 
 .smaller-font               {font-size: 0.65em;}
 
-input, textarea{width: 200px;}
+input, textarea             {width: 200px;}
 
 
 /* Animations */

@@ -47,12 +47,12 @@ document.getElementById("description").addEventListener("input", () => {
     document.getElementById("description_length").innerText = `${descriptionInput.value.length}/${maxLength}`;
 });
 
-document.getElementById("add").addEventListener("mouseenter", () => {
-    const button = document.getElementById("add");
-    if(button.disabled){
-        button.disabled = false;
-    } else {
-        button.disabled = true;
-    }
-})
+// document.getElementById("add").addEventListener("mouseenter", () => {
+//     const button = document.getElementById("add");
+//     if(button.disabled){
+//         button.disabled = false;
+//     } else {
+//         button.disabled = true;
+//     }
+// })
 

@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="bg-myWhite padding-10 border-radius-10 main-block">
-        Add new timer
+    <div class="bg-myWhite padding-10 border-radius-10 text-middle">
+        <p>
+            Add new timer
+        </p>
         <table>
             <tr>
                 <td class="column">
@@ -34,7 +36,7 @@
                     <input type="date" id="start_date" required class="padding-10 border-radius-10 dates">
                 </td>
                 <td>
-                    <button class="padding-10 border-radius-10">Now</button>
+                    <button class="padding-10 border-radius-10 myButton-myGold myButton">Now</button>
                 </td>
             </tr>
             <tr>
@@ -52,7 +54,7 @@
                     </label>
                 </td>
             </tr>
-            <tr>
+            <tr class="">
                 <td class="column">
                     <span>
                         Description:
@@ -69,14 +71,19 @@
                 </td>
             </tr>
         </table>
-        <button id="add" class="padding-10 border-radius-10 myButton">
-            <img src="img/happy.svg">
-            Add
-        </button>
-        <button id="clear" class="padding-10 border-radius-10 myButton">
-            <img src="img/clear.svg" alt="">
-            Clear
-        </button>
+        <div id="infos">
+            Here will be some info
+        </div>
+        <div class="flex">
+            <button id="add" class="padding-10 border-radius-10 myButton-myGold myButton min-width-150">
+                <img src="img/happy.svg">
+                Add
+            </button>
+            <button id="clear" class="padding-10 border-radius-10 myButton-myGold myButton min-width-150">
+                <img src="img/clear.svg" alt="">
+                Clear
+            </button>
+        </div>
     </div>
     <script src="scripts.js"></script>
     <script src="add_scripts.js"></script>
