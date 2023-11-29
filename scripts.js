@@ -139,3 +139,5 @@ const calculateProgress = (startTimestamp, endTimestamp, currentTimestamp) => {
     const progressPercentage = (elapsedDuration / totalDuration) * 100;
     return Math.min(100, progressPercentage);
 };
+
+const isValidUrl = url => /^(https?:\/\/)?([\w-]+(\.[\w-]+)+\/?)?([^\s]*)?$/.test(url);
