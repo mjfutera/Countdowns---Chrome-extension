@@ -51,13 +51,14 @@ window.addEventListener("load", async () => {
             mainTimerDiv.setAttribute("id", "mainTimerDiv-"+i);
             const borderColor = getRandomIndex(borderColors);
             mainTimerDiv.classList.add("cdbm_timers_singleTimer", "padding-10", "border-radius-10", borderColors[borderColor], "text-middle");
-
+            
+            const timestampLeft = e["end_date"] - timestampNow;
+            const timestampObject = convertTimestampToDaysHoursMinutes(timestampLeft);
+            mainTimerDiv.setAttribute("title", timestampToDateString(e["end_date"]));
             const timerTitle = document.createElement("span");
             timerTitle.classList.add("font-oswald", "font-size-larger");
             timerTitle.innerText = e.title;
             mainTimerDiv.appendChild(timerTitle);
-            const timestampLeft = e["end_date"] - timestampNow;
-            const timestampObject = convertTimestampToDaysHoursMinutes(timestampLeft);
         
             const days = document.createElement("span");
             days.classList.add("column");
@@ -108,15 +109,16 @@ window.addEventListener("load", async () => {
             progressBar.setAttribute("value", progress);
             progressBar.innerText = progress;
             mainTimerDiv.appendChild(progressBar);
-
-            const description = document.createElement("details");
-            const summary = document.createElement("summary");
-            summary.innerText = "Description";
-            description.appendChild(summary);
-            mainTimerDiv.appendChild(description);
-            const descriptionText = document.createElement("p");
-            descriptionText.innerText = e["description"];
-            description.appendChild(descriptionText);
+            if(e["description"].length>0){
+                const description = document.createElement("details");
+                const summary = document.createElement("summary");
+                summary.innerText = "Description";
+                description.appendChild(summary);
+                mainTimerDiv.appendChild(description);
+                const descriptionText = document.createElement("p");
+                descriptionText.innerText = e["description"];
+                description.appendChild(descriptionText);
+            }
             activeTimers.appendChild(mainTimerDiv);
 
         } else {

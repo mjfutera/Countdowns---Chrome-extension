@@ -13,7 +13,7 @@
         </p>
         <table id="table">
             <tr>
-                <td class="column">
+                <td class="column min-width-150">
                     <span>
                         Timer title
                     </span>
@@ -29,18 +29,18 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td class="min-width-150">
                     Start date:
                 </td>
                 <td>
                     <input type="date" id="start_date" required class="padding-10 border-radius-10 dates">
                 </td>
                 <td>
-                    <button class="padding-10 border-radius-10 myButton-myGold myButton">Now</button>
+                    <button class="padding-10 border-radius-10 myButton-myGold myButton" id="now_button">Now</button>
                 </td>
             </tr>
             <tr>
-                <td>
+                <td class="min-width-150">
                     End date:
                 </td>
                 <td colspan="2">
@@ -48,13 +48,14 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="3">
-                    <label>
-                        With time: <input type="checkbox" id="timeFieldChanger">
-                    </label>
+                <td class="min-width-150">
+                    <label for="timeFieldChanger">With time:</label>
+                </td>
+                <td colspan="2">
+                    <input type="checkbox" id="timeFieldChanger">
                 </td>
             </tr>
-            <tr class="">
+            <tr class="min-width-150">
                 <td class="column">
                     <span>
                         Description:
@@ -71,15 +72,17 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="3">
-                    <label>
-                        Launch site on time: <input type="checkbox" id="site_on_time">
+                <td class="min-width-150">
+                    <label for="site_on_time">
+                        Launch site on time: 
                     </label>
+                </td>
+                <td colspan="2">
+                    <input type="checkbox" id="site_on_time">
                 </td>
             </tr>
         </table>
         <div id="infos">
-            Here will be some info
         </div>
         <div class="flex">
             <button id="add" class="padding-10 border-radius-10 myButton-myGold myButton min-width-150">
@@ -90,6 +93,7 @@
                 <img src="img/clear.svg" alt="">
                 Clear
             </button>
+            <button class="padding-10 border-radius-10 myButton-myGold myButton min-width-150">Return</button>
         </div>
     </div>
     <script src="scripts.js"></script>

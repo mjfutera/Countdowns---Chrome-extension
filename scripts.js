@@ -110,14 +110,14 @@ const removeAlarm = (name) => {
 };
 
 //Other functions
-const getRandomIndex = (array) => Math.floor(Math.random() * array.length);
+const getRandomIndex = (array) => Math.floor(Math.random() * array.length); //Colors
 
 const convertTimestampToDaysHoursMinutes = timestamp => {
     const oneDay = 24 * 60 * 60 * 1000;
     const oneHour = 60 * 60 * 1000;
     const oneMinute = 60 * 1000;
 
-    const days = Math.floor(timestamp / oneDay);
+    const days = Math.floor(timestamp / oneDay)+1;
     const hours = Math.floor((timestamp % oneDay) / oneHour);
     const minutes = Math.floor((timestamp % oneHour) / oneMinute);
 
@@ -140,4 +140,18 @@ const calculateProgress = (startTimestamp, endTimestamp, currentTimestamp) => {
     return Math.min(100, progressPercentage);
 };
 
-const isValidUrl = url => /^(https?:\/\/)?([\w-]+(\.[\w-]+)+\/?)?([^\s]*)?$/.test(url);
+const isValidUrl = url => /^(https?:\/\/)([\w-]+(\.[\w-]+)+)\/?([^\s]*)?$/.test(url);
+
+const timestampToDateString = timestamp => {
+    const date = new Date(timestamp);
+
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+
+    const dateString = `${year}-${month}-${day} ${hours}:${minutes}`;
+
+    return dateString;
+};
