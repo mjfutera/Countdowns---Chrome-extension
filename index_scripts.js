@@ -65,7 +65,7 @@ window.addEventListener("load", async () => {
             const daysNumber = document.createElement("span");
             daysNumber.setAttribute("id", "daysNumber-"+i);
             daysNumber.innerText = timestampObject["days"];
-            daysNumber.classList.add("text-middle", "text-bold", "font-sieze-4counter");
+            daysNumber.classList.add("text-middle", "text-bold", "font-size-4counter");
             days.appendChild(daysNumber);
             const daysSubtitle = document.createElement("span");
             daysSubtitle.setAttribute("id", "daysSubtitle-"+i);
@@ -77,7 +77,7 @@ window.addEventListener("load", async () => {
                 const hours = document.createElement("span");
                 hours.classList.add("column");
                 const hoursNumber = document.createElement("span");
-                hoursNumber.classList.add("text-middle", "text-bold", "font-sieze-4counter");
+                hoursNumber.classList.add("text-middle", "text-bold", "font-size-4counter");
                 hoursNumber.innerText = timestampObject["hours"];
                 hoursNumber.setAttribute("id", "hoursNumber-"+i);
                 hours.appendChild(hoursNumber);
@@ -92,7 +92,7 @@ window.addEventListener("load", async () => {
                 minutes.classList.add("column");
                 const minutesNumber = document.createElement("span");
                 minutesNumber.setAttribute("id", "minutesNumber-"+i);
-                minutesNumber.classList.add("text-middle", "text-bold", "font-sieze-4counter");
+                minutesNumber.classList.add("text-middle", "text-bold", "font-size-4counter");
                 minutesNumber.innerText = timestampObject["minutes"];
                 minutes.appendChild(minutesNumber);
 

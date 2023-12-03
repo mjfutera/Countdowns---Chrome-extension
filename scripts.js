@@ -1,20 +1,5 @@
 const maxTimers = 8;
 
-const testPattern = [
-    {
-        "title": "Przesilenie zimowe",
-        "start_date": 1700670720000, 
-        "end_date": 1800954462390,
-        "show_time": true,
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in dolor non arcu convallis auctor. Praesent lobortis dapibus lacus ac interdum. In auctor rhoncus accumsan. Sed ultricies tortor quis dui convallis, id viverra urna blandit. Nulla dolor erat, posuere quis sagittis quis, ornare ac tellus. Nunc eget turpis pretium ipsum gravida laoreet vel sit amet neque. Ut justo massa, gravida et lobortis eu, condimentum nec diam.",
-        "active": true,
-        "newTab": {
-            "active": true,
-            "url": "http://onet.pl"
-        }
-    }
-]
-
 const borderColors = [
     "border-myGreen", 
     "border-myYellow",  
@@ -41,6 +26,7 @@ const getFromChromeSyncStorage = async (key="cdbm_timers_storage") => {
 };
 
 const saveToChromeSyncStorage = async (data, key="cdbm_timers_storage") => {
+    if(!Array.isArray(data))data=[];
     return new Promise((resolve) => {
         chrome.storage.sync.set({ [key]: JSON.stringify(data) }, () => {
             console.log(`Data (${key}) is saved`);

@@ -3,13 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My New Tab</title>
+    <title>Edit timers</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .singleTimer {
+            border-style: solid;
+            border-width: 1px;
+            display: flex;
+            flex-direction: row;
+        }
+        .leftSide {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
 </head>
 <body>
-    <div class="singleTimer">
-        
+    <div class="bg-myWhite padding-10 border-radius-10 text-middle main-block">
+        All timers
+        <div id="editTimers">
+            Timers goes here
+        </div>
     </div>
     <script src="scripts.js"></script>
+    <script src="edit.js"></script>
 </body>
 </html>

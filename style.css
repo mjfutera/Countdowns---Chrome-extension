@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Vina+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Shrikhand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fasthand&display=swap');
 
 body {
     display: flex;
@@ -17,23 +19,23 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-.padding-10 {padding: 10px;}
-.padding-20 {padding: 20px;}
+.padding-10                 {padding: 10px;}
+.padding-20                 {padding: 20px;}
 
 .font-roboto                {font-family: 'Roboto', sans-serif;}
 .font-proximaNova           {font-family: 'proximaNova', sans-serif;}
 .font-vinaSans              {font-family: 'Vina Sans', sans-serif;}
 .font-oswald                {font-family: 'Oswald', sans-serif;}
+.font-shrik                 {font-family: 'Shrikhand', serif;}
+.font-fasthand              {font-family: 'Fasthand', cursive;}
 
 .font-size-large            {font-size: large;}
 .font-size-larger           {font-size: x-large;}
-.font-sieze-4counter        {font-size: 2em;}
+.font-size-4counter         {font-size: 2em;} 
 
-.border-radius-10 {border-radius: 10px;}
+.border-radius-10           {border-radius: 10px;}
 
-.input-date {
-    text-align: center;
-}
+.input-date                 {text-align: center;}
 
 :root {
     --myGreen: #008000; 

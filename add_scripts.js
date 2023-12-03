@@ -165,7 +165,6 @@ document.getElementById("add").addEventListener("click", async () => {
         const infos = document.getElementById("infos");
         if(timers.length<=maxTimers){
             timers.push(data);
-            console.log(timers);
             if(saveToChromeSyncStorage(timers)){
                 infos.innerText = "Timer added";
             } else {
