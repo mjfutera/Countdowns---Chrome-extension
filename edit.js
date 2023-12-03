@@ -13,7 +13,7 @@ const showTimers = async () => {
     const timers = await getFromChromeSyncStorage();
     timers.forEach((e, i) => {
         const singleTimer = document.createElement("div");
-        singleTimer.classList.add("singleTimer", "padding-10", "border-radius-10");
+        singleTimer.classList.add("singleTimer", "padding-10", "border-radius-10", "show_hide");
         singleTimer.draggable = true;
             const leftSide = document.createElement("div");
             leftSide.classList.add("leftSide");
@@ -36,17 +36,31 @@ const showTimers = async () => {
 
             const rightSide = document.createElement("div");
                 const rightSide_firstRow = document.createElement("div");
+                rightSide_firstRow.classList.add("row");
                     const rightSide_firstRow_title = document.createElement("div");
                     rightSide_firstRow_title.innerText = e["title"];
                     rightSide_firstRow.appendChild(rightSide_firstRow_title);
 
                     const optionDiv = document.createElement("div");
+                    optionDiv.classList.add("show_hide_child");
                         const editDiv = document.createElement("div");
-                        editDiv.innerText += "Edit timer";
+                            const editImg = document.createElement("img");
+                            editImg.src = "img/edit.svg";
+                            editDiv.appendChild(editImg);
+                                                        
+                            const editText = document.createElement("span");
+                            editText.innerText = "Edit timer";
+                            editDiv.appendChild(editText);
                         optionDiv.appendChild(editDiv);
 
                         const removeDiv = document.createElement("div");
-                        removeDiv.innerText += "Remove timer"
+                            const removeImg = document.createElement("img");
+                            removeImg.src = "img/delete.svg";
+                            removeDiv.appendChild(removeImg);
+                                                        
+                            const removeText = document.createElement("span");
+                            removeText.innerText = "Remove timer";
+                            removeDiv.appendChild(removeText);
                         optionDiv.appendChild(removeDiv);
                     rightSide_firstRow.appendChild(optionDiv);
                 rightSide.appendChild(rightSide_firstRow);
