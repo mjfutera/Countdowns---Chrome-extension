@@ -6,6 +6,12 @@
     <title>Edit timers</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        #editTimers{
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
         .singleTimer {
             border-style: solid;
             border-width: 1px;
@@ -16,10 +22,26 @@
             display: flex;
             flex-direction: column;
         }
-
         .row {
             display: flex;
             flex-direction: row;
+        }
+        .show_hide_child {
+            display: none;
+        }
+
+        .show_hide:hover .show_hide_child {
+            display: flex;
+            flex-direction: row;
+        }
+        .width100 {
+            width: 100%;
+        }
+        .justify-content-space-between {
+            justify-content: space-between;
+        }
+        .single-option {
+            align-items: center;
         }
     </style>
 </head>

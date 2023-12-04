@@ -1,12 +1,33 @@
 const mainDiv = document.getElementById("editTimers");
 
-const moveUp = (timers, currentIndex) => {
-    console.log(timers)
-}
+const moveUp = async (timers, currentIndex) => {
+    if (currentIndex > 0 && currentIndex < timers.length) {
+        const temp = timers[currentIndex];
+        timers[currentIndex] = timers[currentIndex - 1];
+        timers[currentIndex - 1] = temp;
+    }
+    saveToChromeSyncStorage(timers);
+    showTimers();
+};
 
-const moveDown = (timers, currentIndex) => {
-    console.log(timers)
-}
+const moveDown = async (timers, currentIndex) => {
+    if (currentIndex >= 0 && currentIndex < timers.length - 1) {
+        const temp = timers[currentIndex];
+        timers[currentIndex] = timers[currentIndex + 1];
+        timers[currentIndex + 1] = temp;
+    }
+    saveToChromeSyncStorage(timers);
+    showTimers();
+};
+
+const removeElement = async (timers, currentIndex) => {
+    if (currentIndex >= 0 && currentIndex < timers.length) {
+        timers.splice(currentIndex, 1);
+    }
+    saveToChromeSyncStorage(timers);
+    showTimers();
+};
+
 
 const showTimers = async () => {
     mainDiv.innerHTML="";
@@ -25,6 +46,11 @@ const showTimers = async () => {
                 })
                 leftSide.appendChild(arrowUp);
 
+                const currentPosition = document.createElement("span");
+                currentPosition.innerText = i+1;
+                currentPosition.classList.add("text-middle", "font-size-larger", "text-fiverrGreen");
+                leftSide.appendChild(currentPosition);
+
                 const arrowDown = document.createElement("img");
                 arrowDown.src = "img/down.svg";
                 arrowDown.classList.add("cursor-pointer");
@@ -35,8 +61,9 @@ const showTimers = async () => {
             singleTimer.appendChild(leftSide);
 
             const rightSide = document.createElement("div");
+            rightSide.classList.add("width100");
                 const rightSide_firstRow = document.createElement("div");
-                rightSide_firstRow.classList.add("row");
+                rightSide_firstRow.classList.add("row", "justify-content-space-between");
                     const rightSide_firstRow_title = document.createElement("div");
                     rightSide_firstRow_title.innerText = e["title"];
                     rightSide_firstRow.appendChild(rightSide_firstRow_title);
@@ -44,6 +71,7 @@ const showTimers = async () => {
                     const optionDiv = document.createElement("div");
                     optionDiv.classList.add("show_hide_child");
                         const editDiv = document.createElement("div");
+                        editDiv.classList.add("single-option");
                             const editImg = document.createElement("img");
                             editImg.src = "img/edit.svg";
                             editDiv.appendChild(editImg);
@@ -54,6 +82,10 @@ const showTimers = async () => {
                         optionDiv.appendChild(editDiv);
 
                         const removeDiv = document.createElement("div");
+                        removeDiv.classList.add("single-option");
+                        removeDiv.addEventListener("click", () => {
+                            removeElement(timers, i);
+                        })
                             const removeImg = document.createElement("img");
                             removeImg.src = "img/delete.svg";
                             removeDiv.appendChild(removeImg);
@@ -66,7 +98,6 @@ const showTimers = async () => {
                 rightSide.appendChild(rightSide_firstRow);
             singleTimer.appendChild(rightSide);
         mainDiv.appendChild(singleTimer);
-
     });
 }
 
