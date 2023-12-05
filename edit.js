@@ -43,7 +43,7 @@ const showTimers = async () => {
                 arrowUp.classList.add("cursor-pointer");
                 arrowUp.addEventListener("click", () => {
                     moveUp(timers, i);
-                })
+                });
                 leftSide.appendChild(arrowUp);
 
                 const currentPosition = document.createElement("span");
@@ -56,7 +56,7 @@ const showTimers = async () => {
                 arrowDown.classList.add("cursor-pointer");
                 arrowDown.addEventListener("click", () => {
                     moveDown(timers, i);
-                })
+                });
                 leftSide.appendChild(arrowDown);
             singleTimer.appendChild(leftSide);
 
@@ -84,8 +84,10 @@ const showTimers = async () => {
                         const removeDiv = document.createElement("div");
                         removeDiv.classList.add("single-option");
                         removeDiv.addEventListener("click", () => {
-                            removeElement(timers, i);
-                        })
+                            if(window.confirm("Sure?")){
+                                removeElement(timers, i);
+                            }
+                        });
                             const removeImg = document.createElement("img");
                             removeImg.src = "img/delete.svg";
                             removeDiv.appendChild(removeImg);

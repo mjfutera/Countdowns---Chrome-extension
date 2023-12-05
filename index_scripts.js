@@ -27,7 +27,10 @@ const timersUpdate = timers => {
             progressBar.setAttribute("value", currentProgress);
             progressBar.innerText = currentProgress;
             if(timestampLeft<=0){
-                // triggerChromeNotification(`Gratulacje! Twój timer "${e["title"]}" właśnie zakończył odliczanie. Co teraz?`);
+                triggerChromeNotification(`Gratulacje! Twój timer "${e["title"]}" właśnie zakończył odliczanie. Co teraz?`);
+                if(e["newTab"]["active"]){
+                    createTab(e["newTab"]["url"]);
+                }
                 e["active"] = false;
                 saveToChromeSyncStorage(timers);
             }
@@ -42,7 +45,9 @@ window.addEventListener("load", async () => {
     const inactiveTimer = document.getElementById("cdbm_timers_inactive");
     // const timers = testPattern;
     const timers = await getFromChromeSyncStorage();
-    
+    if(timers.length===0){
+        document.getElementById("editField").setAttribute("style", "display: none;");
+    }
     const currentDate = new Date();
     const timestampNow = currentDate.getTime();
     timers.forEach((e,i) => {

@@ -99,8 +99,10 @@ const allFieldsChecker = () => {
             list.appendChild(element);
         })
         infos.appendChild(list);
+        document.getElementById("addPic").src="img/sad.svg";
     } else {
         infos.innerHTML = "";
+        document.getElementById("addPic").src="img/happy.svg";
     }
     document.getElementById("add").disabled = result;
     return result;
@@ -175,3 +177,8 @@ document.getElementById("add").addEventListener("click", async () => {
         }
     }
 });
+
+document.getElementById("return").addEventListener("click", () => {
+    closeTab();
+    createTab();
+})

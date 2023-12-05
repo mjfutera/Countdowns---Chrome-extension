@@ -65,11 +65,41 @@ const triggerChromeNotification = (notificationMessage) => {
 
   const createTab = async (url = "") => {
     return new Promise((resolve) => {
-        chrome.tabs.create({ url }, (tab) => {
-            resolve(tab);
+        if (url === "") {
+            chrome.tabs.create({}, (tab) => {
+                resolve(tab);
+            });
+        } else {
+            chrome.tabs.create({ url }, (tab) => {
+                resolve(tab);
+            });
+        }
+    });
+};
+
+const closeTab = async (url = "") => {
+    return new Promise((resolve) => {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            const tabToClose = tabs[0];
+            if (url === "") {
+                chrome.tabs.remove(tabToClose.id, () => {
+                    resolve(true);
+                });
+            } else {
+                chrome.tabs.query({ url }, (matchingTabs) => {
+                    if (matchingTabs.length > 0) {
+                        chrome.tabs.remove(matchingTabs[0].id, () => {
+                            resolve(true);
+                        });
+                    } else {
+                        resolve(false);
+                    }
+                });
+            }
         });
     });
 };
+
 
 const checkIfAlarmExists = async (name) => {
     return new Promise((resolve) => {
