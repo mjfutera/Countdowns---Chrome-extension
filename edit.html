@@ -49,9 +49,101 @@
     <div class="bg-myWhite padding-10 border-radius-10 text-middle main-block">
         All timers
         <div id="editTimers">
-            Timers goes here
+        </div>
+        <button id="return" class="padding-10 border-radius-10 myButton-myGold myButton min-width-150">
+            <img src="img/return.svg" alt="">
+            Return
+        </button>
+    </div>
+    <dialog id="singleEdit">
+        <table id="table">
+            <tr>
+                <td class="column min-width-150">
+                    <span>
+                        Timer title
+                    </span>
+                    <span class="smaller-font">
+                        Maximum 20 characters
+                    </span>
+                </td>
+                <td>
+                    <input type="text" id="title" required class="padding-10 border-radius-10" maxlength="50" placeholder="For ex. winter solstice">
+                </td>
+                <td id="title_length">
+                    0/20
+                </td>
+            </tr>
+            <tr>
+                <td class="min-width-150">
+                    Start date:
+                </td>
+                <td>
+                    <input type="date" id="start_date" required class="padding-10 border-radius-10 dates">
+                </td>
+                <td>
+                    <button class="padding-10 border-radius-10 myButton-myGold myButton" id="now_button">
+                        <img src="img/now.svg">
+                        Now
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td class="min-width-150">
+                    End date:
+                </td>
+                <td colspan="2">
+                    <input type="date" id="end_date" required class="padding-10 border-radius-10 dates">
+                </td>
+            </tr>
+            <tr>
+                <td class="min-width-150">
+                    <label for="timeFieldChanger">With time:</label>
+                </td>
+                <td colspan="2">
+                    <input type="checkbox" id="timeFieldChanger">
+                </td>
+            </tr>
+            <tr class="min-width-150">
+                <td class="column">
+                    <span>
+                        Description:
+                    </span>
+                    <span class="smaller-font">
+                        Maximum 100 characters
+                    </span>
+                </td>
+                <td>
+                    <textarea id="description" class="padding-10 border-radius-10"></textarea>
+                </td>
+                <td id="description_length">
+                    0/100
+                </td>
+            </tr>
+            <tr>
+                <td class="min-width-150">
+                    <label for="site_on_time">
+                        Launch site on time: 
+                    </label>
+                </td>
+                <td colspan="2">
+                    <input type="checkbox" id="site_on_time">
+                </td>
+            </tr>
+        </table>
+        <div id="infos">
+        </div>
+        <div class="flex">
+            <button id="add" class="padding-10 border-radius-10 myButton-myGold myButton min-width-150">
+                <img src="img/happy.svg" id="addPic">
+                Save changes
+            </button>
+            <button id="close" class="padding-10 border-radius-10 myButton-myGold myButton min-width-150">
+                <img src="img/close.svg" alt="">
+                Close without save
+            </button>
         </div>
     </div>
+    </dialog>
     <script src="scripts.js"></script>
     <script src="edit.js"></script>
 </body>

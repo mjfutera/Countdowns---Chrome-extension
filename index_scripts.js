@@ -40,10 +40,8 @@ const timersUpdate = timers => {
 }
 
 window.addEventListener("load", async () => {
-    // await saveToChromeSyncStorage(testPattern);
     const activeTimers = document.getElementById("cdbm_timers_active");
     const inactiveTimer = document.getElementById("cdbm_timers_inactive");
-    // const timers = testPattern;
     const timers = await getFromChromeSyncStorage();
     if(timers.length===0){
         document.getElementById("editField").setAttribute("style", "display: none;");
@@ -59,7 +57,6 @@ window.addEventListener("load", async () => {
             
             const timestampLeft = e["end_date"] - timestampNow;
             const timestampObject = convertTimestampToDaysHoursMinutes(timestampLeft);
-            mainTimerDiv.setAttribute("title", timestampToDateString(e["end_date"]));
             const timerTitle = document.createElement("span");
             timerTitle.classList.add("font-oswald", "font-size-larger");
             timerTitle.innerText = e.title;
