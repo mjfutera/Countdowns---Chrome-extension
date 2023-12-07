@@ -25,14 +25,17 @@ const openEdit = (timers, timerId) => {
     document.getElementById("description").value = singleTimer["description"];
     document.getElementById("site_on_time").checked = singleTimer["newTab"]["active"];
     if(singleTimer["newTab"]["active"]){
-        document.getElementById("site_on_time")
+        document.getElementById("site_on_time") = singleTimer["newTab"]["url"];
     }
 
 
     titleLengthCheck();
 }
 
-document.getElementById("close").addEventListener("click", () => {dialog.close();})
+document.getElementById("close").addEventListener("click", () => {
+    clearAllFields();
+    dialog.close();}
+)
 
 const moveDown = async (timers, currentIndex) => {
     if (currentIndex >= 0 && currentIndex < timers.length - 1) {

@@ -191,9 +191,22 @@ input, textarea             {width: 200px;}
     gap: 10px;
 }
 
+.mainDiv_singleTimer {
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
+    gap: 2px;
+    align-items: center;
+}
+
+.mainDiv_singleTimer .showMe{
+    visibility: hidden;
+}
+
+.mainDiv_singleTimer:hover .showMe {
+    visibility: visible;
+}
+
 .cdbm_timers_singleTimer{
-    display: flex;
-    flex-direction: column;
     border-width:   1px; 
     border-style:   solid;
 }
