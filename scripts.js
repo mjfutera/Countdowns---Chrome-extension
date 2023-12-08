@@ -1,5 +1,6 @@
 const maxTimers = 8;
 const maxLength = 20;
+const maxDescription = 100;
 
 const borderColors = [
     "border-myGreen", 
