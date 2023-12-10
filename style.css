@@ -33,6 +33,8 @@ body {
 .font-size-larger           {font-size: x-large;}
 .font-size-4counter         {font-size: 2em;} 
 
+.smaller-font               {font-size: 0.65em;}
+
 .border-radius-10           {border-radius: 10px;}
 
 .input-date                 {text-align: center;}
@@ -145,8 +147,6 @@ body {
 .myButton-fiverBlack        {background-color: var(--fiverBlack);}
 
 .pre-line                   {white-space: pre-line;}
-
-.smaller-font               {font-size: 0.65em;}
 
 input, textarea             {width: 200px;}
 

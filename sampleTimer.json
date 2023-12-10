@@ -1,0 +1,13 @@
+{
+    "title": "Przesilenie zimowe",
+    "start_date": 123,
+    "end_date": 456,
+    "show_time": true,
+    "description": "aaaa",
+    "active": true,
+    "newTab": {
+        "active": true,
+        "url": "http://onet.pl"
+    }
+
+}

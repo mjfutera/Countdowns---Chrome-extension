@@ -28,7 +28,9 @@ const getFromChromeSyncStorage = async (key="cdbm_timers_storage") => {
 };
 
 const saveToChromeSyncStorage = async (data, key="cdbm_timers_storage") => {
-    if(!Array.isArray(data))data=[];
+    if(!Array.isArray(data)){
+        data=[];
+    }
     return new Promise((resolve) => {
         chrome.storage.sync.set({ [key]: JSON.stringify(data) }, () => {
             console.log(`Data (${key}) is saved`);
@@ -126,63 +128,19 @@ const removeAlarm = (name) => {
         });
     });
 };
-// Checks
-const titleLengthCheck = () => {
-    const titleInput = document.getElementById("title");
 
-    if (titleInput.value.length > maxLength) {
-        titleInput.value = titleInput.value.slice(0, maxLength);
-    }
-
-    document.getElementById("title_length").innerText = `${titleInput.value.length}/${maxLength}`;
-}
-
-const descriptionChecker = () => {
-    const descriptionInput = document.getElementById("description");
-    const maxLength = 100;
-
-    if (descriptionInput.value.length > maxLength) {
-        descriptionInput.value = descriptionInput.value.slice(0, maxLength);
-    }
-
-    document.getElementById("description_length").innerText = `${descriptionInput.value.length}/${maxLength}`;
-}
-
-const siteOnTime = () => {
-    if(document.getElementById("site_on_time").checked){
-        const table = document.getElementById("table");
-    
-        const newTr = document.createElement("tr");
-        newTr.setAttribute("id", "pageURLline");
-        const firstTd = document.createElement("tr");
-        firstTd.innerText = "Enter the website address";
-        firstTd.classList.add("min-width-150");
-        newTr.appendChild(firstTd); 
-
-        const secondTd = document.createElement("td");
-        const urlInput = document.createElement("input");
-        urlInput.setAttribute("type", "text");
-        urlInput.setAttribute("id", "url_input");
-        urlInput.classList.add("padding-10", "border-radius-10");
-        secondTd.appendChild(urlInput);
-        secondTd.setAttribute("colspan", "2");
-        newTr.appendChild(secondTd);
-
-        table.appendChild(newTr);
-    } else if (document.getElementById("pageURLline")){
-        document.getElementById("pageURLline").remove();
-    }
-}
 
 //Other functions
 const getRandomIndex = (array) => Math.floor(Math.random() * array.length); //Colors
 
-const convertTimestampToDaysHoursMinutes = timestamp => {
+const convertTimestampToDaysHoursMinutes = (timestamp, showTime) => {
     const oneDay = 24 * 60 * 60 * 1000;
     const oneHour = 60 * 60 * 1000;
     const oneMinute = 60 * 1000;
-
-    const days = Math.floor(timestamp / oneDay)+1;
+    let days = Math.floor(timestamp / oneDay);
+    if(!showTime){
+        days = days+1;
+    }
     const hours = Math.floor((timestamp % oneDay) / oneHour);
     const minutes = Math.floor((timestamp % oneHour) / oneMinute);
 
@@ -216,107 +174,4 @@ const setDataFormat = (fieldType, timestamp) => {
     }
 };
 
-const setNow = () => {
-    const field = document.getElementById("start_date");
-    field.value = setDataFormat(field.type);
-}
 
-const timeFieldChanger = () => {
-    const fields = [...document.getElementsByClassName("dates")];
-    fields.forEach(field => {
-        if (field.type === "datetime-local") {
-            field.type = "date";
-        } else if (field.type === "date") {
-            field.type = "datetime-local";
-        }
-    });
-};
-
-
-const clearAllFields = () => {
-    document.getElementById("title").value = null;
-    document.getElementById("start_date").value = null;
-    document.getElementById("end_date").value = null;
-    document.getElementById("description").value = null;
-    document.getElementById("site_on_time").checked = false;
-    document.getElementById("site_on_time").checked = false;
-    document.getElementById("infos").innerHTML = null;
-    document.getElementById("add").disabled = false;
-    document.getElementById("addPic").src="img/happy.svg";
-}
-
-const allFieldsChecker = () => {
-    const timerTitle = document.getElementById("title").value;
-    const startDate = document.getElementById("start_date").value;
-    const startDateTimeStamp = new Date(startDate).getTime();
-    const endDate = document.getElementById("end_date").value;
-    const endDateTimeStamp = new Date(endDate).getTime();
-    const description = document.getElementById("description").value;
-    const infos = document.getElementById("infos");
-    const siteOnTime = document.getElementById("site_on_time");
-    const checkArray = [];
-    const infoArray = [];
-    
-    if(!timerTitle.length){
-        checkArray.push(true);
-        infoArray.push("Title can't be empty");
-    } else if (timerTitle.length>20) {
-        checkArray.push(true);
-        infoArray.push("Title too long");
-    } else {
-        checkArray.push(false);
-    }
-
-    if(!startDate){
-        checkArray.push(true);
-        infoArray.push("Start date can't be empty");
-    } else {
-        checkArray.push(false);
-    }
-
-    if(!endDate){
-        checkArray.push(true);
-        infoArray.push("End date can't be empty");
-    } else if (startDateTimeStamp>=endDateTimeStamp){
-        checkArray.push(true);
-        infoArray.push("End date can't be ealier than start date");
-    } else {
-        checkArray.push(false);
-    }
-
-    if(description.length>maxLength){
-        checkArray.push(true);
-        infoArray.push("End date can't be ealier than start date");
-    } else {
-        checkArray.push(false);
-    }
-
-    if(siteOnTime.checked){
-        const correctUrl = isValidUrl(document.getElementById("url_input").value);
-        if(!correctUrl){
-            checkArray.push(true);
-            infoArray.push("Page URL is incorrect");
-        } else {
-            checkArray.push(false);
-        }
-    }
-
-    const result = checkArray.includes(true);
-    if(result) {
-        infos.innerHTML = "";
-        const list = document.createElement("ol");
-        infoArray.forEach(e => {
-            const element = document.createElement("li");
-            element.innerText = e;
-            list.appendChild(element);
-        })
-        infos.appendChild(list);
-        document.getElementById("addPic").src="img/sad.svg";
-    } else {
-        infos.innerHTML = "";
-        document.getElementById("addPic").src="img/happy.svg";
-    }
-    document.getElementById("add").disabled = result;
-    console.log(result);
-    return result;
-}
