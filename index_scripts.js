@@ -460,6 +460,7 @@ const timersUpdate = timers => {
                 }
                 e["active"] = false;
                 saveToChromeSyncStorage(timers);
+                showTimers();
             }
         }
     })
@@ -584,6 +585,7 @@ const showTimers = async () => {
                     const hoursSubtitle = document.createElement("span");
                     hoursSubtitle.setAttribute("id", "hoursSubtitle-"+i);
                     hoursSubtitle.innerText = timestampObject.days<2 ? "hour": "hours";
+                    hoursSubtitle.classList.add("text-middle");
                     hours.appendChild(hoursSubtitle);
                     timerDiv.appendChild(hours);
 
@@ -602,6 +604,7 @@ const showTimers = async () => {
                     const minutesSubtitle = document.createElement("span");
                     minutesSubtitle.setAttribute("id", "minutesSubtitle-"+i);
                     minutesSubtitle.innerText = timestampObject.days<2 ? "minute": "minutes";
+                    minutesSubtitle.classList.add("text-middle");
                     minutes.appendChild(minutesSubtitle);
                     timerDiv.appendChild(minutes);
                 }
@@ -674,10 +677,24 @@ const showTimers = async () => {
                 upDown.appendChild(moveDownImg);
             mainDiv.appendChild(upDown);
 
-            const timerDiv = document.createElement("div");
-                timerDiv.setAttribute("id", "timerDiv-"+i);
-                timerDiv.innerText = "test";
-            mainDiv.appendChild(timerDiv);
+            const inactiveTimerDiv = document.createElement("div");
+            inactiveTimerDiv.setAttribute("id", "timerDiv-"+i);
+                    const inactiveTimerTitle = document.createElement("div");
+                    inactiveTimerTitle.classList.add("text-middle", "font-size-larger");
+                    inactiveTimerTitle.innerText = e["title"];
+                    inactiveTimerDiv.appendChild(inactiveTimerTitle);
+
+                    const inactiveTimerSubtitle = document.createElement("div");
+                    inactiveTimerSubtitle.innerText = "Your timer is expired. Please, remove or edit";
+                    inactiveTimerSubtitle.classList.add("text-middle");
+                    inactiveTimerDiv.appendChild(inactiveTimerSubtitle);
+
+                    const timerImg = document.createElement("img");
+                    timerImg.classList.add("text-middle");
+                    timerImg.style = "  margin-left: auto; margin-right: auto;"
+                    timerImg.src="img/warning.svg";
+                inactiveTimerDiv.appendChild(timerImg);
+            mainDiv.appendChild(inactiveTimerDiv);
 
             const editDelete = document.createElement("div");
                 editDelete.classList.add("showMe");
@@ -717,4 +734,68 @@ const showTimers = async () => {
 
 window.addEventListener("load", () => {
     showTimers();
+})
+
+document.getElementById("aboutPlugin").addEventListener("click", () => {
+    const socialMediaArray = [
+        {
+            "icon": "buyMeACoffee.png",
+            "name": "Buy Me A Coffee",
+            "link": "https://www.buymeacoffee.com/mjfutera/",
+            "alt": "Like my extension? Buy me a coffee"
+        },
+        {
+            "icon": "gitHub.png",
+            "name": "GitHub",
+            "link": "https://www.buymeacoffee.com/mjfutera/",
+            "alt": "All my programming repositories"
+        },
+        {
+            "icon": "linkedIn.png",
+            "name": "Linked In",
+            "link": "https://www.linkedin.com/in/michalfutera/",
+            "alt": "Join me in my business network"
+        },
+        {
+            "icon": "twitter.png",
+            "name": "X (Twitter)",
+            "link": "https://twitter.com/mjfutera",
+            "alt": "Follow me on Twitter"
+        },
+        {
+            "icon": "linkTree.png",
+            "name": "LinkTree",
+            "link": "https://linktr.ee/mjfutera",
+            "alt": "All my links in one place"
+        }
+    ]
+
+    dialog.innerHTML = null;
+    dialog.showModal();
+    const firstLine = document.createElement("div");
+        firstLine.innerText = "Test";
+    dialog.appendChild(firstLine);
+
+    const socialMedia = document.createElement("div");
+    socialMedia.classList.add("text-middle");
+    const socialMediaText = document.createElement("div");
+    socialMediaText.innerText = "Check my Social Media";
+    socialMediaText.classList.add("text-middle");
+    socialMedia.appendChild(socialMediaText);
+    const socialMediaIcons = document.createElement("div");
+
+    socialMediaArray.forEach(e => {
+        const image = document.createElement("img");
+        image.src="logos/socialMedia/"+e["icon"];
+        image.classList.add("social-media-icon", "cursor-pointer");
+        image.alt = e["alt"];
+        image.addEventListener("click", () => {
+            createTab(e["link"]);
+        })
+        socialMediaIcons.appendChild(image);
+    })
+    socialMedia.appendChild(socialMediaIcons);
+
+    dialog.appendChild(socialMedia);
+
 })

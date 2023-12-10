@@ -152,6 +152,15 @@ input, textarea             {width: 200px;}
 
 .display-none               {display: none;}
 
+.social-media-icon {
+    max-width: 50px;
+    border-radius: 100%;
+}
+
+.social-media-icon:hover {
+    transform: rotate(5deg);transform-origin: center center;
+}
+
 /* Animations */
 
 @keyframes pulse {
