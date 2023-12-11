@@ -113,12 +113,14 @@ const checkIfAlarmExists = async (name) => {
     });
 };
 
-const createAlarm = (name, delayInMinutes) => {
-    return new Promise((resolve) => {
-        chrome.alarms.create(name, { delayInMinutes }, () => {
-            resolve(true);
-        });
-    });
+const createAlarm = async (name, delayInMinutes, periodInMinutes) => {
+    try {
+        await chrome.alarms.create(name, { delayInMinutes, periodInMinutes });
+        return true;
+    } catch (error) {
+        console.error('Error creating alarm:', error);
+        return false;
+    }
 };
 
 const removeAlarm = (name) => {
