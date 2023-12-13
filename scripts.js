@@ -51,7 +51,7 @@ const removeFromChromeSyncStorage = async (key="cdbm_timers_storage") => {
 const triggerChromeNotification = (notificationMessage) => {
     const options = {
         type: 'basic',
-        title: 'My Extension Notification',
+        title: 'Countdown timer by Michal',
       message: notificationMessage,
       iconUrl: 'logos/logo128.png', // Zmień ścieżkę do odpowiedniego obrazka ikony
     };
@@ -123,6 +123,13 @@ const createAlarm = async (name, delayInMinutes, periodInMinutes) => {
     }
 };
 
+const setAlarmIfNotExist = () => {
+    if(!checkIfAlarmExists("timers")){
+        createAlarm("timers", 1, 1);
+        console.log("Alarm is set");
+    }
+}
+
 const removeAlarm = (name) => {
     return new Promise((resolve) => {
         chrome.alarms.clear(name, (wasCleared) => {
@@ -176,4 +183,10 @@ const setDataFormat = (fieldType, timestamp) => {
     }
 };
 
-
+const playSound = () => {
+    const audio = new Audio("sound/ring.mp3");
+    audio.play();
+  };
+  
+  
+  

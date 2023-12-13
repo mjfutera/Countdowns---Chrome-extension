@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Countdown timer by Michal",
     "version": "1.0.0",
-    "description": "A Countdown Timer is a JavaScript script used on websites to display and count down from a specified time, often creating a sense of urgency and triggering actions upon reaching zero.",
+    "description": "Timer for Chrome is a simple yet powerful extension that lets you create custom timers to remind you of important events. Set a timer for anything from a meeting to a cooking time and get notified when it's time to take action.",
     "icons": {
         "128": "logos/logo128.png"
     },
@@ -15,7 +15,8 @@
     "chrome_url_overrides": {
         "newtab": "newtab.html"
     },
-    "background": {
-        "service_worker": "background.js"
-    }  
+    "author": {
+        "name": "Michał Futera",
+        "url": "https://linktr.ee/mjfutera"
+      }
 }

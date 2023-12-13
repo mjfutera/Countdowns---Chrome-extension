@@ -98,6 +98,7 @@ const addEditForm = (timers, timerID) => {
                     titleInput.id = "title";
                     titleInput.required = true;
                     titleInput.addEventListener("change", () => {
+                        allFieldsChecker();
                         if (titleInput.value.length > maxLength) {
                             titleInput.value = titleInput.value.slice(0, maxLength);
                         }
@@ -135,12 +136,10 @@ const addEditForm = (timers, timerID) => {
                         const startTime = timers[timerID]["start_date"];
                         if (timers[timerID]["show_time"]) {
                             startDateInput.type = "datetime-local";
-                            const formattedStartTime = new Date(startTime).toISOString().slice(0, 16); // Formatowanie timestampu do formatu datetime-local (YYYY-MM-DDTHH:mm)
-                            startDateInput.value = formattedStartTime;
+                            startDateInput.value = new Date(startTime).toISOString().slice(0, 16);
                         } else {
                             startDateInput.type = "date";
-                            const formattedStartDate = new Date(startTime).toISOString().slice(0, 10); // Formatowanie timestampu do formatu date (YYYY-MM-DD)
-                            startDateInput.value = formattedStartDate;
+                            startDateInput.value = new Date(startTime).toISOString().slice(0, 10);
                         }
                     } else {
                         startDateInput.type = "date";
@@ -161,6 +160,13 @@ const addEditForm = (timers, timerID) => {
                         const nowButtonText = document.createElement("span");
                         nowButtonText.innerText = "Now";
                     nowButton.appendChild(nowButtonText);
+                    nowButton.addEventListener("click", () => {
+                        if(startDateInput.type === "datetime-local"){
+                            startDateInput.value = new Date().toISOString().slice(0, 16);
+                        } else {
+                            startDateInput.value = new Date().toISOString().slice(0, 10);
+                        }
+                    })
                     nowButton.classList.add("padding-10", 
                     "border-radius-10", 
                     "myButton-myGold", 
@@ -182,13 +188,11 @@ const addEditForm = (timers, timerID) => {
                     if(edit){
                         const endDate = timers[timerID]["end_date"];
                         if (timers[timerID]["show_time"]) {
-                            startDateInput.type = "datetime-local";
-                            const formattedStartTime = new Date(endDate).toISOString().slice(0, 16); // Formatowanie timestampu do formatu datetime-local (YYYY-MM-DDTHH:mm)
-                            endDateInput.value = formattedStartTime;
+                            endDateInput.type = "datetime-local"; 
+                            endDateInput.value = new Date(endDate).toISOString().slice(0, 16);;
                         } else {
-                            startDateInput.type = "date";
-                            const formattedStartDate = new Date(endDate).toISOString().slice(0, 10); // Formatowanie timestampu do formatu date (YYYY-MM-DD)
-                            endDateInput.value = formattedStartDate;
+                            endDateInput.type = "date";
+                            endDateInput.value = new Date(endDate).toISOString().slice(0, 10);
                         }
                     } {
                         endDateInput.id = "end_date";
@@ -298,7 +302,7 @@ const addEditForm = (timers, timerID) => {
                                     if(edit){
                                         urlInput.value = timers[timerID]["newTab"]["url"];
                                     }
-                                    urlInput.addEventListener("click", () => {
+                                    urlInput.addEventListener("change", () => {
                                         allFieldsChecker();
                                     })
                                 seventhTr_secondTd.append(urlInput);
@@ -454,7 +458,8 @@ const timersUpdate = timers => {
             progressBar.setAttribute("value", currentProgress);
             progressBar.innerText = currentProgress;
             if(timestampLeft<=0){
-                triggerChromeNotification(`Gratulacje! Twój timer "${e["title"]}" właśnie zakończył odliczanie. Co teraz?`);
+                triggerChromeNotification(`Congratulations! Your timer "${e["title"]}"just finished countingdown.What now?`);
+                playSound();
                 if(e["newTab"]["active"]){
                     createTab(e["newTab"]["url"]);
                 }
@@ -492,8 +497,9 @@ const removeElement = async (timers, currentIndex) => {
         if (currentIndex >= 0 && currentIndex < timers.length) {
             timers.splice(currentIndex, 1);
         }
-        saveToChromeSyncStorage(timers);
-        showTimers();
+        saveToChromeSyncStorage(timers).then(() => {
+            showTimers();
+        });
     }
 };
 
@@ -518,22 +524,30 @@ const showTimers = async () => {
                 const upDown = document.createElement("div");
                 upDown.classList.add("showMe");
                     const moveUpImg = document.createElement("img");
-                    moveUpImg.src = "img/up.svg";
-                    moveUpImg.classList.add("cursor-pointer");
-                    moveUpImg.addEventListener("click", () => {
-                        moveUp(timers, i);
-                    })
+                    if(i>0 || timers.length === 1){
+                        moveUpImg.src = "img/up.svg";
+                        moveUpImg.addEventListener("click", () => {
+                            moveUp(timers, i);
+                        })
+                        moveUpImg.classList.add("cursor-pointer");
+                    } else {
+                        moveUpImg.src = "img/blocked.svg";
+                    }
                 upDown.appendChild(moveUpImg);
                     const currentIndex = document.createElement("span");
                     currentIndex.innerText = i+1;
                     currentIndex.classList.add("text-middle", "text-bold", "text-myGreen", "font-size-larger");
                 upDown.appendChild(currentIndex);
                     const moveDownImg = document.createElement("img");
-                    moveDownImg.src = "img/down.svg";
-                    moveDownImg.classList.add("cursor-pointer");
-                    moveDownImg.addEventListener("click", () => {
-                        moveDown(timers, i);
-                    })
+                    if(i === timers.length-1 || timers.length === 1){
+                        moveDownImg.src = "img/blocked.svg";
+                    } else {
+                        moveDownImg.src = "img/down.svg";
+                        moveDownImg.classList.add("cursor-pointer");
+                        moveDownImg.addEventListener("click", () => {
+                            moveDown(timers, i);
+                        })
+                    }
                 upDown.appendChild(moveDownImg);
             mainDiv.appendChild(upDown);
 
@@ -734,6 +748,7 @@ const showTimers = async () => {
 
 window.addEventListener("load", () => {
     showTimers();
+    setAlarmIfNotExist();
 })
 
 document.getElementById("aboutPlugin").addEventListener("click", () => {
@@ -773,7 +788,7 @@ document.getElementById("aboutPlugin").addEventListener("click", () => {
     dialog.innerHTML = null;
     dialog.showModal();
     const firstLine = document.createElement("div");
-        firstLine.innerText = "Test";
+        firstLine.innerText = "Hi there! Welcome to the 1.0.0 release of the Countdown by Michał Google Chrome extension. This extension allows you to set up to 12 timers (reminders) for any event. The timers will appear every time you open a new tab. In future versions, I will add background operation so that the extension will notify you even if you don't open a new tab directly. In addition, the script allows you to open any web page in a new tab when the timer reaches zero. The date fields can be set in two different formats: just the dates, or more precise dates and times. If you enjoy this extension, please share it with your friends.";
     dialog.appendChild(firstLine);
 
     const socialMedia = document.createElement("div");
@@ -795,7 +810,29 @@ document.getElementById("aboutPlugin").addEventListener("click", () => {
         socialMediaIcons.appendChild(image);
     })
     socialMedia.appendChild(socialMediaIcons);
-
     dialog.appendChild(socialMedia);
+    const closeButton = document.createElement("div");
+        closeButton.classList.add("cursor-pointer", "myButton", "myButton-myGold", "text-middle", "padding-10", "border-radius-10");
+        closeButton.innerText = "Close";
+        closeButton.addEventListener("click", () => {
+            dialog.close();
+            dialog.innerHTML = null;
+        })
+    dialog.appendChild(closeButton)
 
+})
+
+document.getElementById("bigReset").addEventListener("click", () => {
+    if(confirm("This action cannot be undone. Proceed?")){
+        removeFromChromeSyncStorage().then(() => {
+            removeAlarm("timers");
+        }).then(() => {
+            setAlarmIfNotExist();
+        }).then(() => {
+            showTimers();
+        }).then(() => {
+            triggerChromeNotification("All timers and settings have been reseted")
+        })
+
+    }
 })
