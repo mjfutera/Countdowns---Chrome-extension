@@ -1,16 +1,18 @@
 importScripts('./scripts.js');
 
 self.addEventListener("activate", (event) => {
-    setAlarmIfNotExist();
-    triggerChromeNotification("Extension is now active.");
-  });
+    if(setAlarmIfNotExist()){
+      triggerChromeNotification("Extension is now active.");
+    };
+    clients.claim();
+});
 
 self.addEventListener("alarm", async (event) => {
   if (event.name === "timers") {
     const timers = await getFromChromeSyncStorage();
     const currentTime = new Date().getTime();
     timers.forEach((e) => {
-      if (currentTime >= e.end_date) {
+      if (currentTime >= e["end_date"]) {
         if (!e.active) return;
         e.active = false;
         triggerChromeNotification(`Congratulations! Your timer "${e.title}" just finished counting down. What now?`);
@@ -23,16 +25,15 @@ self.addEventListener("alarm", async (event) => {
       saveToChromeSyncStorage(timers);
     }
   }
+  triggerChromeNotification("Test alarm");
 });
 
-// self.addEventListener("fetch", (event) => {
-//   // Tutaj możesz dodać obsługę żądań sieciowych, na przykład cache'owanie
-//   // lub przekierowywanie żądań do innych źródeł.
-//   // Jeśli nie jest wymagane specjalne zachowanie, można to zignorować.
+self.addEventListener("fetch", (event) => {
+  console.log(event);
+});
+
+// self.addEventListener("backgroundfetch", (event) => {
+//   if (event.request.method === "GET" && event.request.url === "/timers") {
+//     event.respondWith(new Response("Timers"));
+//   }
 // });
-
-self.addEventListener("backgroundfetch", (event) => {
-  if (event.request.method === "GET" && event.request.url === "/timers") {
-    event.respondWith(new Response("Timers"));
-  }
-});

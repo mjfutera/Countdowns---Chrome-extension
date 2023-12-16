@@ -19,6 +19,18 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.dialog {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.logo {
+    max-width: 25%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .padding-10                 {padding: 10px;}
 .padding-20                 {padding: 20px;}
 

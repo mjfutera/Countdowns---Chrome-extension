@@ -472,25 +472,48 @@ const timersUpdate = timers => {
     timerTimeOut = setTimeout(() => timersUpdate(timers), 1000);
 }
 
-const moveUp = async (timers, currentIndex) => {
-    if (currentIndex > 0 && currentIndex < timers.length) {
-        const temp = timers[currentIndex];
-        timers[currentIndex] = timers[currentIndex - 1];
-        timers[currentIndex - 1] = temp;
+const moveUp = async (timers, currentIndex, container) => {
+    const moveUpImg = document.createElement("img");
+
+    if(currentIndex > 0){
+        moveUpImg.src = "img/up.svg";
+        moveUpImg.addEventListener("click", () => {
+            const temp = timers[currentIndex];
+            timers[currentIndex] = timers[currentIndex - 1];
+            timers[currentIndex - 1] = temp;
+            saveToChromeSyncStorage(timers).then(() => {
+                showTimers();
+            });
+        })
+        moveUpImg.classList.add("cursor-pointer");
+    } else {
+        moveUpImg.src = "img/blocked.svg";
     }
-    saveToChromeSyncStorage(timers);
-    showTimers();
+    container.appendChild(moveUpImg);
 };
 
-const moveDown = async (timers, currentIndex) => {
-    if (currentIndex >= 0 && currentIndex < timers.length - 1) {
+const moveDown = async (timers, currentIndex, container) => {
+    const moveDownImg = document.createElement('img');
+  
+    if (currentIndex < timers.length - 1) {
+      moveDownImg.src = 'img/down.svg';
+      moveDownImg.classList.add('cursor-pointer');
+      moveDownImg.addEventListener('click', async () => {
         const temp = timers[currentIndex];
         timers[currentIndex] = timers[currentIndex + 1];
         timers[currentIndex + 1] = temp;
+  
+        await saveToChromeSyncStorage(timers);
+        showTimers();
+  
+    });
+    } else {
+        moveDownImg.src = "img/blocked.svg";
     }
-    saveToChromeSyncStorage(timers);
-    showTimers();
-};
+container.appendChild(moveDownImg);
+  };
+  
+
 
 const removeElement = async (timers, currentIndex) => {
     if(confirm("Sure?")){
@@ -523,32 +546,13 @@ const showTimers = async () => {
             "cdbm_timers_singleTimer");
                 const upDown = document.createElement("div");
                 upDown.classList.add("showMe");
-                    const moveUpImg = document.createElement("img");
-                    if(i>0 || timers.length === 1){
-                        moveUpImg.src = "img/up.svg";
-                        moveUpImg.addEventListener("click", () => {
-                            moveUp(timers, i);
-                        })
-                        moveUpImg.classList.add("cursor-pointer");
-                    } else {
-                        moveUpImg.src = "img/blocked.svg";
-                    }
-                upDown.appendChild(moveUpImg);
+                moveUp(timers, i, upDown);
+
                     const currentIndex = document.createElement("span");
                     currentIndex.innerText = i+1;
                     currentIndex.classList.add("text-middle", "text-bold", "text-myGreen", "font-size-larger");
                 upDown.appendChild(currentIndex);
-                    const moveDownImg = document.createElement("img");
-                    if(i === timers.length-1 || timers.length === 1){
-                        moveDownImg.src = "img/blocked.svg";
-                    } else {
-                        moveDownImg.src = "img/down.svg";
-                        moveDownImg.classList.add("cursor-pointer");
-                        moveDownImg.addEventListener("click", () => {
-                            moveDown(timers, i);
-                        })
-                    }
-                upDown.appendChild(moveDownImg);
+                moveDown(timers, i, upDown);
             mainDiv.appendChild(upDown);
 
                 const timerDiv = document.createElement("div");
@@ -671,24 +675,12 @@ const showTimers = async () => {
             "cdbm_timers_singleTimer");
                 const upDown = document.createElement("div");
                 upDown.classList.add("showMe");
-                    const moveUpImg = document.createElement("img");
-                    moveUpImg.src = "img/up.svg";
-                    moveUpImg.classList.add("cursor-pointer");
-                    moveUpImg.addEventListener("click", () => {
-                        moveUp(timers, i);
-                    })
-                upDown.appendChild(moveUpImg);
+                moveUp(timers, i, mainDiv);
                     const currentIndex = document.createElement("span");
                     currentIndex.innerText = i+1;
                     currentIndex.classList.add("text-middle", "text-bold", "text-myGreen", "font-size-larger");
                 upDown.appendChild(currentIndex);
-                    const moveDownImg = document.createElement("img");
-                    moveDownImg.src = "img/down.svg";
-                    moveDownImg.classList.add("cursor-pointer");
-                    moveDownImg.addEventListener("click", () => {
-                        moveDown(timers, i);
-                    })
-                upDown.appendChild(moveDownImg);
+                moveDown(timers, i, mainDiv);
             mainDiv.appendChild(upDown);
 
             const inactiveTimerDiv = document.createElement("div");
@@ -787,9 +779,46 @@ document.getElementById("aboutPlugin").addEventListener("click", () => {
 
     dialog.innerHTML = null;
     dialog.showModal();
+    dialog.classList.add("dialog");
+    const logo = document.createElement("img");
+        logo.src = "logos/logo.png";
+        logo.classList.add("logo", "border-radius-10");
+        dialog.appendChild(logo);
     const firstLine = document.createElement("div");
-        firstLine.innerText = "Hi there! Welcome to the 1.0.0 release of the Countdown by Michał Google Chrome extension. This extension allows you to set up to 12 timers (reminders) for any event. The timers will appear every time you open a new tab. In future versions, I will add background operation so that the extension will notify you even if you don't open a new tab directly. In addition, the script allows you to open any web page in a new tab when the timer reaches zero. The date fields can be set in two different formats: just the dates, or more precise dates and times. If you enjoy this extension, please share it with your friends.";
-    dialog.appendChild(firstLine);
+        const table = document.createElement("table");
+            const firstTr = document.createElement("tr");
+                const firstTr_firstTd = document.createElement("tr");
+                    firstTr_firstTd.innerText = "Plugin name:";
+                    firstTr_firstTd.classList.add("min-width-150");
+                firstTr.appendChild(firstTr_firstTd);
+                const firstTr_secondTd = document.createElement("td");
+                    firstTr_secondTd.innerText = manifest["name"]+" v. "+ manifest["version"];
+                firstTr.appendChild(firstTr_secondTd);
+            firstLine.appendChild(table);
+        table.appendChild(firstTr);
+            const secondTr = document.createElement("tr");
+                const secondTr_firstTd = document.createElement("td");
+                secondTr_firstTd.classList.add("min-width-150");
+                secondTr_firstTd.innerText = "Description:";
+            secondTr.appendChild(secondTr_firstTd);
+                const secondTr_secondTd = document.createElement("td");
+                secondTr_secondTd.innerText = manifest["description"];
+            secondTr.appendChild(secondTr_secondTd);
+        table.appendChild(secondTr);
+            const thirdTr = document.createElement("tr");
+                const thirdTr_firstTd = document.createElement("td");
+                thirdTr_firstTd.classList.add("min-width-150");
+                thirdTr_firstTd.innerText = "Author:"
+            thirdTr.appendChild(thirdTr_firstTd);
+                const thirdTr_secondTd = document.createElement('td');
+                    const author = document.createElement("a");
+                        author.href = manifest["author"]["url"];
+                        author.innerText = manifest["author"]["name"];
+                        author.target = "_blank";
+                thirdTr_secondTd.appendChild(author);
+            thirdTr.appendChild(thirdTr_secondTd);
+        table.appendChild(thirdTr);
+    dialog.appendChild(table);
 
     const socialMedia = document.createElement("div");
     socialMedia.classList.add("text-middle");
@@ -817,6 +846,7 @@ document.getElementById("aboutPlugin").addEventListener("click", () => {
         closeButton.addEventListener("click", () => {
             dialog.close();
             dialog.innerHTML = null;
+            dialog.classList.remove("dialog");
         })
     dialog.appendChild(closeButton)
 

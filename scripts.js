@@ -1,4 +1,5 @@
-const maxTimers = 8;
+const manifest = chrome.runtime.getManifest();
+const maxTimers = 12;
 const maxLength = 20;
 const maxDescription = 100;
 
