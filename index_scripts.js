@@ -40,9 +40,9 @@ const allFieldsChecker = () => {
         checkArray.push(false);
     }
 
-    if(description.length>maxLength){
+    if(description.length>maxDescription){
         checkArray.push(true);
-        infoArray.push("End date can't be ealier than start date");
+        infoArray.push(`Description can't by longer than ${maxDescription} characters`);
     } else {
         checkArray.push(false);
     }
@@ -75,6 +75,7 @@ const allFieldsChecker = () => {
     document.getElementById("saveButton").disabled = result;
     return result;
 }
+
 
 const addEditForm = (timers, timerID) => {
     dialog.innerHTML = null;
@@ -265,8 +266,8 @@ const addEditForm = (timers, timerID) => {
                     if (descriptionTextarea.value.length > maxDescription) {
                         descriptionTextarea.value = descriptionTextarea.value.slice(0, maxDescription);
                     }
-                
-                    fifthTr_thirdTd.innerText = `${descriptionTextarea.value.length}/${maxDescription}`
+                    fifthTr_thirdTd.innerText = `${descriptionTextarea.value.length}/${maxDescription}`;
+                    allFieldsChecker();
                 })
             fifthTr.appendChild(fifthTr_thirdTd);                     
         table.appendChild(fifthTr);
@@ -675,12 +676,12 @@ const showTimers = async () => {
             "cdbm_timers_singleTimer");
                 const upDown = document.createElement("div");
                 upDown.classList.add("showMe");
-                moveUp(timers, i, mainDiv);
+                moveUp(timers, i, upDown);
                     const currentIndex = document.createElement("span");
                     currentIndex.innerText = i+1;
                     currentIndex.classList.add("text-middle", "text-bold", "text-myGreen", "font-size-larger");
                 upDown.appendChild(currentIndex);
-                moveDown(timers, i, mainDiv);
+                moveDown(timers, i, upDown);
             mainDiv.appendChild(upDown);
 
             const inactiveTimerDiv = document.createElement("div");
@@ -738,7 +739,7 @@ const showTimers = async () => {
     timersUpdate(timers);
 }
 
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
     showTimers();
     setAlarmIfNotExist();
 })
@@ -818,6 +819,19 @@ document.getElementById("aboutPlugin").addEventListener("click", () => {
                 thirdTr_secondTd.appendChild(author);
             thirdTr.appendChild(thirdTr_secondTd);
         table.appendChild(thirdTr);
+
+            const fourthTr = document.createElement("tr");
+                const fourthTr_firstTd = document.createElement("td");
+                fourthTr_firstTd.innerText = "Pictures from:"
+            fourthTr.appendChild(fourthTr_firstTd);
+                const fourthTr_secondTd = document.createElement("td");
+                    const picsumLink = document.createElement("a");
+                    picsumLink.href = "https://picsum.photos/";
+                    picsumLink.target = "_blank";
+                    picsumLink.innerText = "Picsum photos";
+                fourthTr_secondTd.appendChild(picsumLink);
+            fourthTr.appendChild(fourthTr_secondTd);
+        table.appendChild(fourthTr);
     dialog.appendChild(table);
 
     const socialMedia = document.createElement("div");

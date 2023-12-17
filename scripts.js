@@ -141,6 +141,25 @@ const removeAlarm = (name) => {
 
 
 //Other functions
+const getData = async (url) => {
+    const headers = {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET'
+    };
+  
+    const response = await fetch(url, {
+      headers: headers
+    });
+  
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error(`Failed to fetch data from ${url}: ${response.status}`);
+    }
+  };
+  
+
 const getRandomIndex = (array) => Math.floor(Math.random() * array.length); //Colors
 
 const convertTimestampToDaysHoursMinutes = (timestamp, showTime) => {
@@ -159,6 +178,20 @@ const convertTimestampToDaysHoursMinutes = (timestamp, showTime) => {
         hours,
         minutes
     };
+}
+
+const getTimeZone = async () => {
+    const timeZones = await getData("timezones.json");
+    const date = new Date();
+    const offset = date.getTimezoneOffset();
+    return timeZones.find(zone => zone["offsetMinutes"] === offset)["name"];
+};
+
+const getCurrentTimeFromApi = async () => {
+    const timeZone = await getTimeZone();
+    const apiUrl = "https://timeapi.io/api/Time/current/zone?timeZone="+timeZone;
+    const timeObject = await getData(apiUrl);
+    return timeObject;
 }
 
 const calculateProgress = (startTimestamp, endTimestamp, currentTimestamp) => {

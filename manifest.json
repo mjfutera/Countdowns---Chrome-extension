@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Countdown timer by Michal",
     "version": "1.0.0",
-    "description": "Timer for Chrome is a simple yet powerful extension that lets you create custom timers to remind you of important events. Set a timer for anything from a meeting to a cooking time and get notified when it's time to take action.",
+    "description": "Create, manage, and be notified for important events.",
     "icons": {
         "128": "logos/logo128.png"
     },
