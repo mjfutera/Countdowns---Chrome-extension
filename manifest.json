@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Countdown timer by Michal",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Create, manage, and be notified for important events.",
     "icons": {
         "128": "logos/logo128.png"

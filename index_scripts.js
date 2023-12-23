@@ -1,6 +1,13 @@
 const dialog = document.getElementById("mainPopUp");
 let timerTimeOut;
 
+const getNumberOfDaysInMonth = (month, year) => {
+    let isLeapYear = year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
+    let daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    return daysInMonths[month - 1] + (isLeapYear && month == 2 ? 1 : 0);
+}
+  
+
 const allFieldsChecker = () => {
     const timerTitle = document.getElementById("title").value;
     const startDate = document.getElementById("start_date").value;
@@ -225,9 +232,14 @@ const addEditForm = (timers, timerID) => {
                             timeFieldChanger.checked = timers[timerID]["show_time"];
                         }
                         timeFieldChanger.addEventListener("click", (event) => {
+                            const startDateValue = startDateInput.value;
+                            const endDateValue = endDateInput.value;
+                            console.log(typeof startDateValue);
                             if(event.target.checked) {
                                 startDateInput.type = "datetime-local";
                                 endDateInput.type = "datetime-local";
+                                // startDateInput.value = startDateValue+"T00:00";
+                                // endDateInput.value = endDateValue+"T00:00";
                             } else {
                                 startDateInput.type = "date";
                                 endDateInput.type = "date";
