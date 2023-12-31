@@ -2,6 +2,46 @@ const manifest = chrome.runtime.getManifest();
 const maxTimers = 12;
 const maxLength = 20;
 const maxDescription = 100;
+const utmParams = "??utm_source="+manifest["name"]+"&utm_content="+manifest["version"];
+
+const socialMediaArray = [
+    {
+        "icon": "buyMeACoffee.png",
+        "name": "Buy Me A Coffee",
+        "link": "https://www.buymeacoffee.com/mjfutera/",
+        "alt": "Like my extension? Buy me a coffee"
+    },
+    {
+        "icon": "gitHub.png",
+        "name": "GitHub",
+        "link": "https://www.buymeacoffee.com/mjfutera/",
+        "alt": "All my programming repositories"
+    },
+    {
+        "icon": "linkedIn.png",
+        "name": "Linked In",
+        "link": "https://www.linkedin.com/in/michalfutera/",
+        "alt": "Join me in my business network"
+    },
+    {
+        "icon": "twitter.png",
+        "name": "X (Twitter)",
+        "link": "https://twitter.com/mjfutera",
+        "alt": "Follow me on Twitter"
+    },
+    {
+        "icon": "linkTree.png",
+        "name": "LinkTree",
+        "link": "https://linktr.ee/mjfutera",
+        "alt": "All my links in one place"
+    },
+    {
+        "icon": "threads.png",
+        "name": "Instagram Threads",
+        "link": "https://www.threads.net/@mjf86.pl",
+        "alt": "Instagram threads"
+    }
+]
 
 const borderColors = [
     "border-myGreen", 
@@ -16,128 +56,6 @@ const borderColors = [
     "border-fiverrGreen", 
     "border-fiverrBlack"
 ];
-
-//Chrome  extension functions
-const getFromChromeSyncStorage = async (key="cdbm_timers_storage") => {
-    return new Promise((resolve) => {
-        chrome.storage.sync.get([key], (result) => {
-            const dataString = result[key] || "[]";
-            const data = JSON.parse(dataString);
-            resolve(data);
-        });
-    });
-};
-
-const saveToChromeSyncStorage = async (data, key="cdbm_timers_storage") => {
-    if(!Array.isArray(data)){
-        data=[];
-    }
-    return new Promise((resolve) => {
-        chrome.storage.sync.set({ [key]: JSON.stringify(data) }, () => {
-            console.log(`Data (${key}) is saved`);
-            resolve(true);
-        });
-    });
-};
-
-const removeFromChromeSyncStorage = async (key="cdbm_timers_storage") => {
-    return new Promise((resolve) => {
-        chrome.storage.sync.remove([key], () => {
-            console.log(`Data (${key}) is removed`);
-            resolve(true);
-        });
-    });
-};
-
-const triggerChromeNotification = (notificationMessage) => {
-    const options = {
-        type: 'basic',
-        title: 'Countdown timer by Michal',
-      message: notificationMessage,
-      iconUrl: 'logos/logo128.png', // Zmień ścieżkę do odpowiedniego obrazka ikony
-    };
-  
-    chrome.notifications.create(options, (notificationId) => {
-      if (chrome.runtime.lastError) {
-        console.error('Error creating notification:', chrome.runtime.lastError.message);
-        return false;
-      } else {
-        console.log('Notification created with ID:', notificationId);
-        return true;
-      }
-    });
-  };
-
-  const createTab = async (url = "") => {
-    return new Promise((resolve) => {
-        if (url === "") {
-            chrome.tabs.create({}, (tab) => {
-                resolve(tab);
-            });
-        } else {
-            chrome.tabs.create({ url }, (tab) => {
-                resolve(tab);
-            });
-        }
-    });
-};
-
-const closeTab = async (url = "") => {
-    return new Promise((resolve) => {
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            const tabToClose = tabs[0];
-            if (url === "") {
-                chrome.tabs.remove(tabToClose.id, () => {
-                    resolve(true);
-                });
-            } else {
-                chrome.tabs.query({ url }, (matchingTabs) => {
-                    if (matchingTabs.length > 0) {
-                        chrome.tabs.remove(matchingTabs[0].id, () => {
-                            resolve(true);
-                        });
-                    } else {
-                        resolve(false);
-                    }
-                });
-            }
-        });
-    });
-};
-
-
-const checkIfAlarmExists = async (name) => {
-    return new Promise((resolve) => {
-        chrome.alarms.get(name, (alarm) => {
-            resolve(!!alarm);
-        });
-    });
-};
-
-const createAlarm = async (name, delayInMinutes, periodInMinutes) => {
-    try {
-        await chrome.alarms.create(name, { delayInMinutes, periodInMinutes });
-        return true;
-    } catch (error) {
-        console.error('Error creating alarm:', error);
-        return false;
-    }
-};
-
-const setAlarmIfNotExist = () => {
-    if(!checkIfAlarmExists("timers")){
-        createAlarm("timers", 1, 1);
-        console.log("Alarm is set");
-    }
-}
-
-const removeAlarm = (name) => {
-    return new Promise((resolve) => {
-        chrome.alarms.clear(name, (wasCleared) => {
-            resolve(wasCleared);
-        });
-    });
-};
 
 
 //Other functions

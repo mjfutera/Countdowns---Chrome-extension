@@ -8,6 +8,11 @@
     "newTab": {
         "active": true,
         "url": "http://onet.pl"
+    },
+    "recurring": {
+        "active": true,
+        "every": 1,
+        "time_unit": "week"
     }
 
 }

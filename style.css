@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Shrikhand&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fasthand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Fasthand&display=swap');
 
 body {
     display: flex;
@@ -17,6 +18,8 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     font-family: 'Roboto', sans-serif;
+    /* font-family: 'Anton', sans-serif; */
+    /* font-family: 'Fasthand', cursive; */
 }
 
 .dialog {
@@ -40,6 +43,7 @@ body {
 .font-oswald                {font-family: 'Oswald', sans-serif;}
 .font-shrik                 {font-family: 'Shrikhand', serif;}
 .font-fasthand              {font-family: 'Fasthand', cursive;}
+.font-anton                 {font-family: 'Anton', sans-serif;}
 
 .font-size-large            {font-size: large;}
 .font-size-larger           {font-size: x-large;}
@@ -55,6 +59,7 @@ body {
     --myGreen: #008000; 
     --myYellow: #ffff00;
     --myGold: #cccc00;
+    --myOrange: #ff9500;
     --myBlue: #25A1FF;
     --myLime: #00FF00;
     --mySilver: #C0C0C0;

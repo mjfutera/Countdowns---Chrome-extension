@@ -83,6 +83,14 @@ const allFieldsChecker = () => {
     return result;
 }
 
+const toLocalISOString = (date) => {
+    if (!(date instanceof Date) || isNaN(date.getTime())) {
+        return null;
+    }
+    var tzOffset = date.getTimezoneOffset() * 60000;
+    var localISOTime = (new Date(date.getTime() - tzOffset)).toISOString();
+    return localISOTime;
+}
 
 const addEditForm = (timers, timerID) => {
     dialog.innerHTML = null;
@@ -234,16 +242,38 @@ const addEditForm = (timers, timerID) => {
                         timeFieldChanger.addEventListener("click", (event) => {
                             const startDateValue = startDateInput.value;
                             const endDateValue = endDateInput.value;
-                            console.log(typeof startDateValue);
-                            if(event.target.checked) {
+                            
+                            const startDate = new Date(startDateValue);
+                            const endDate = new Date(endDateValue);
+                        
+                            if (event.target.checked) {
                                 startDateInput.type = "datetime-local";
                                 endDateInput.type = "datetime-local";
-                                // startDateInput.value = startDateValue+"T00:00";
-                                // endDateInput.value = endDateValue+"T00:00";
+                        
+                                const startDateTime = toLocalISOString(startDate);
+                                const endDateTime = toLocalISOString(endDate);
+                        
+                                if (startDateTime) {
+                                    startDateInput.value = startDateTime.slice(0, 16);
+                                }
+                                if (endDateTime) {
+                                    endDateInput.value = endDateTime.slice(0, 16);
+                                }
                             } else {
                                 startDateInput.type = "date";
                                 endDateInput.type = "date";
+                        
+                                const startDateStr = toLocalISOString(startDate);
+                                const endDateStr = toLocalISOString(endDate);
+                        
+                                if (startDateStr) {
+                                    startDateInput.value = startDateStr.split('T')[0];
+                                }
+                                if (endDateStr) {
+                                    endDateInput.value = endDateStr.split('T')[0];
+                                }
                             }
+                        
                             allFieldsChecker();
                         })
                 fourthTr_secondTd.appendChild(timeFieldChanger);
@@ -523,11 +553,9 @@ const moveDown = async (timers, currentIndex, container) => {
     } else {
         moveDownImg.src = "img/blocked.svg";
     }
-container.appendChild(moveDownImg);
+    container.appendChild(moveDownImg);
   };
   
-
-
 const removeElement = async (timers, currentIndex) => {
     if(confirm("Sure?")){
         if (currentIndex >= 0 && currentIndex < timers.length) {
@@ -542,8 +570,6 @@ const removeElement = async (timers, currentIndex) => {
 const showTimers = async () => {
     const activeTimers = document.getElementById("cdbm_timers_active");
     activeTimers.innerHTML = null;
-    // const inactiveTimer = document.getElementById("cdbm_timers_inactive");
-    // inactiveTimer.innerHTML = null;
     const timers = await getFromChromeSyncStorage();
     const currentDate = new Date();
     const timestampNow = currentDate.getTime();
@@ -576,8 +602,8 @@ const showTimers = async () => {
                 const timerTitle = document.createElement("span");
                 timerTitle.classList.add(
                     "font-oswald", 
-                "font-size-larger",
-                "text-middle"
+                    "font-size-larger",
+                    "text-middle"
                 );
                 timerTitle.innerText = e["title"];
                 timerDiv.appendChild(timerTitle);
@@ -751,45 +777,8 @@ const showTimers = async () => {
     timersUpdate(timers);
 }
 
-window.addEventListener("load", async () => {
-    showTimers();
-    setAlarmIfNotExist();
-})
 
 document.getElementById("aboutPlugin").addEventListener("click", () => {
-    const socialMediaArray = [
-        {
-            "icon": "buyMeACoffee.png",
-            "name": "Buy Me A Coffee",
-            "link": "https://www.buymeacoffee.com/mjfutera/",
-            "alt": "Like my extension? Buy me a coffee"
-        },
-        {
-            "icon": "gitHub.png",
-            "name": "GitHub",
-            "link": "https://www.buymeacoffee.com/mjfutera/",
-            "alt": "All my programming repositories"
-        },
-        {
-            "icon": "linkedIn.png",
-            "name": "Linked In",
-            "link": "https://www.linkedin.com/in/michalfutera/",
-            "alt": "Join me in my business network"
-        },
-        {
-            "icon": "twitter.png",
-            "name": "X (Twitter)",
-            "link": "https://twitter.com/mjfutera",
-            "alt": "Follow me on Twitter"
-        },
-        {
-            "icon": "linkTree.png",
-            "name": "LinkTree",
-            "link": "https://linktr.ee/mjfutera",
-            "alt": "All my links in one place"
-        }
-    ]
-
     dialog.innerHTML = null;
     dialog.showModal();
     dialog.classList.add("dialog");
@@ -860,7 +849,7 @@ document.getElementById("aboutPlugin").addEventListener("click", () => {
         image.classList.add("social-media-icon", "cursor-pointer");
         image.alt = e["alt"];
         image.addEventListener("click", () => {
-            createTab(e["link"]);
+            createTab(e["link"]+utmParams);
         })
         socialMediaIcons.appendChild(image);
     })
@@ -891,4 +880,16 @@ document.getElementById("bigReset").addEventListener("click", () => {
         })
 
     }
+})
+
+document.getElementById("byMichalFutera").addEventListener("click", () => {
+    const link = socialMediaArray.find(e => e["name"]==="LinkTree");
+    createTab(link["link"]+utmParams);
+})
+
+window.addEventListener("load", async () => {
+    showTimers().then(() => {
+        updateTimers();
+    });
+    // setAlarmIfNotExist();
 })
