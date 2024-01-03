@@ -385,6 +385,29 @@ const addEditForm = (timers, timerID) => {
                 table.appendChild(seventhTr);
             }
         }
+            const eighthTr = document.createElement("tr");
+                const eighth_firstTd = document.createElement("td");
+                eighth_firstTd.innerText = "Repeat"
+            eighthTr.appendChild(eighth_firstTd);
+                const eighth_secondTr = document.createElement("td");
+                    const repeatInput = document.createElement("input");
+                    repeatInput.type = "checkbox";
+                eighth_secondTr.appendChild(repeatInput);
+            eighthTr.appendChild(eighth_secondTr);
+        table.appendChild(eighthTr);
+            repeatInput.addEventListener("click", ()=>{
+                if(repeatInput.checked){
+                    const ninthTr = document.createElement("tr");
+                    ninthTr.id="periodicity"
+                        const ninthTr_firstTd = document.createElement("td");
+                        ninthTr_firstTd.innerText = "Periodicity";
+                    ninthTr.appendChild(ninthTr_firstTd);
+                table.appendChild(ninthTr);
+                } else {
+                    document.getElementById("periodicity").remove();
+                }
+            })
+
 
 
     dialog.appendChild(table);
