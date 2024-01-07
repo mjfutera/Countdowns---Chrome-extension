@@ -402,6 +402,35 @@ const addEditForm = (timers, timerID) => {
                         const ninthTr_firstTd = document.createElement("td");
                         ninthTr_firstTd.innerText = "Periodicity";
                     ninthTr.appendChild(ninthTr_firstTd);
+                        const ninthTr_secondTd = document.createElement("td");
+                        ninthTr_secondTd.innerText = "Every ";
+                            const numberOfPeriods = document.createElement("input");
+                            numberOfPeriods.type="number";
+                        ninthTr_secondTd.appendChild(numberOfPeriods);
+                            const nameOfPeriods = document.createElement("select");
+                            let periods = ["day", "week", "month", "year"];
+                            const showPeriods = periods => {
+                                nameOfPeriods.innerHTML = null;
+                                periods.forEach(e => {
+                                    const singlePeriod = document.createElement("option");
+                                    singlePeriod.innerText = e;
+                                    singlePeriod.value = e;
+                                    nameOfPeriods.appendChild(singlePeriod);
+                                })
+                            }
+                            timeFieldChanger.addEventListener("click", () => {
+                                if(timeFieldChanger.checked){
+                                    periods.unshift("minute", "hour")
+                                    showPeriods(periods);
+                                } else {
+                                    periods = periods.filter(element => element !== "minute" && element !== "hour");
+                                    showPeriods(periods);
+                                }
+                            })
+                            showPeriods(periods);
+                        ninthTr_secondTd.appendChild(nameOfPeriods);
+                        
+                    ninthTr.appendChild(ninthTr_secondTd);
                 table.appendChild(ninthTr);
                 } else {
                     document.getElementById("periodicity").remove();
