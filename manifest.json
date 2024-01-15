@@ -14,7 +14,7 @@
     ],
     "chrome_url_overrides": {
         "newtab": "newtab.html"
-    },
+    },  
     "author": {
         "name": "Michał Futera",
         "url": "https://linktr.ee/mjfutera"

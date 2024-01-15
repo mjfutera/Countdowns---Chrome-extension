@@ -939,6 +939,39 @@ document.getElementById("byMichalFutera").addEventListener("click", () => {
     createTab(link["link"]+utmParams);
 })
 
+document.getElementById("options").addEventListener("click", () => {
+    dialog.innerHTML = null;
+    dialog.showModal();
+        const optionsTable = document.createElement("table");
+            const firstTr = document.createElement("tr");
+                const firstTr_firstTd = document.createElement("td");
+                firstTr_firstTd.innerText = "Set plugin as new tab";
+            firstTr.appendChild(firstTr_firstTd);
+                const firstTr_secondTd = document.createElement("td");
+                    const setNewTab = document.createElement("input");
+                    setNewTab.type="checkbox";
+                    chrome.storage.sync.get(['newTabEnabled'], (result) => {
+                        setNewTab.checked = result.newTabEnabled;
+                    });
+                      
+                firstTr_secondTd.appendChild(setNewTab);
+            firstTr.appendChild(firstTr_secondTd);
+        optionsTable.appendChild(firstTr);
+    dialog.appendChild(optionsTable);
+        const saveButton = document.createElement("button");
+        saveButton.addEventListener("click", () => {
+            chrome.storage.sync.set({ newTabEnabled: enableNewTab.checked });
+
+            if (enableNewTab.checked) {
+              chrome.browserAction.setPopup({ popup: 'newTab.html' });
+            } else {
+              chrome.browserAction.setPopup({ popup: '' });
+            }
+        })
+        saveButton.innerText="Save";
+    dialog.appendChild(saveButton);
+})
+
 window.addEventListener("load", async () => {
     showTimers().then(() => {
         updateTimers();
