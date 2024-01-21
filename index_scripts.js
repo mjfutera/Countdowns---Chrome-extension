@@ -121,7 +121,7 @@ const addEditForm = (timers, timerID) => {
                     
                         firstTr_thirdTd.innerText = `${titleInput.value.length}/${maxLength}`;
                     })
-                    titleInput.classList.add("padding-10", "border-radius-10");
+                    titleInput.classList.add("padding-10", "border-radius-10", "width-100p");
                     titleInput.maxLength = "20";
                     titleInput.placeholder = "For ex. winter solstice";
                 firstTr_secondTd.appendChild(titleInput);
@@ -400,14 +400,17 @@ const addEditForm = (timers, timerID) => {
                     const ninthTr = document.createElement("tr");
                     ninthTr.id="periodicity"
                         const ninthTr_firstTd = document.createElement("td");
-                        ninthTr_firstTd.innerText = "Periodicity";
+                        ninthTr_firstTd.innerText = "Every";
                     ninthTr.appendChild(ninthTr_firstTd);
                         const ninthTr_secondTd = document.createElement("td");
-                        ninthTr_secondTd.innerText = "Every ";
                             const numberOfPeriods = document.createElement("input");
                             numberOfPeriods.type="number";
+                            numberOfPeriods.classList.add("padding-10", "border-radius-10");
+                            numberOfPeriods.style.width = '35%';
                         ninthTr_secondTd.appendChild(numberOfPeriods);
                             const nameOfPeriods = document.createElement("select");
+                            nameOfPeriods.classList.add("padding-10", "border-radius-10");
+                            nameOfPeriods.style.width = '35%';
                             let periods = ["day", "week", "month", "year"];
                             const showPeriods = periods => {
                                 nameOfPeriods.innerHTML = null;
@@ -829,7 +832,6 @@ const showTimers = async () => {
     timersUpdate(timers);
 }
 
-
 document.getElementById("aboutPlugin").addEventListener("click", () => {
     dialog.innerHTML = null;
     dialog.showModal();
@@ -939,38 +941,38 @@ document.getElementById("byMichalFutera").addEventListener("click", () => {
     createTab(link["link"]+utmParams);
 })
 
-document.getElementById("options").addEventListener("click", () => {
-    dialog.innerHTML = null;
-    dialog.showModal();
-        const optionsTable = document.createElement("table");
-            const firstTr = document.createElement("tr");
-                const firstTr_firstTd = document.createElement("td");
-                firstTr_firstTd.innerText = "Set plugin as new tab";
-            firstTr.appendChild(firstTr_firstTd);
-                const firstTr_secondTd = document.createElement("td");
-                    const setNewTab = document.createElement("input");
-                    setNewTab.type="checkbox";
-                    chrome.storage.sync.get(['newTabEnabled'], (result) => {
-                        setNewTab.checked = result.newTabEnabled;
-                    });
+// document.getElementById("options").addEventListener("click", () => {
+//     dialog.innerHTML = null;
+//     dialog.showModal();
+//         const optionsTable = document.createElement("table");
+//             const firstTr = document.createElement("tr");
+//                 const firstTr_firstTd = document.createElement("td");
+//                 firstTr_firstTd.innerText = "Set plugin as new tab";
+//             firstTr.appendChild(firstTr_firstTd);
+//                 const firstTr_secondTd = document.createElement("td");
+//                     const setNewTab = document.createElement("input");
+//                     setNewTab.type="checkbox";
+//                     chrome.storage.sync.get(['newTabEnabled'], (result) => {
+//                         setNewTab.checked = result.newTabEnabled;
+//                     });
                       
-                firstTr_secondTd.appendChild(setNewTab);
-            firstTr.appendChild(firstTr_secondTd);
-        optionsTable.appendChild(firstTr);
-    dialog.appendChild(optionsTable);
-        const saveButton = document.createElement("button");
-        saveButton.addEventListener("click", () => {
-            chrome.storage.sync.set({ newTabEnabled: enableNewTab.checked });
+//                 firstTr_secondTd.appendChild(setNewTab);
+//             firstTr.appendChild(firstTr_secondTd);
+//         optionsTable.appendChild(firstTr);
+//     dialog.appendChild(optionsTable);
+//         const saveButton = document.createElement("button");
+//         saveButton.addEventListener("click", () => {
+//             chrome.storage.sync.set({ newTabEnabled: enableNewTab.checked });
 
-            if (enableNewTab.checked) {
-              chrome.browserAction.setPopup({ popup: 'newTab.html' });
-            } else {
-              chrome.browserAction.setPopup({ popup: '' });
-            }
-        })
-        saveButton.innerText="Save";
-    dialog.appendChild(saveButton);
-})
+//             if (enableNewTab.checked) {
+//               chrome.browserAction.setPopup({ popup: 'newTab.html' });
+//             } else {
+//               chrome.browserAction.setPopup({ popup: '' });
+//             }
+//         })
+//         saveButton.innerText="Save";
+//     dialog.appendChild(saveButton);
+// })
 
 window.addEventListener("load", async () => {
     showTimers().then(() => {

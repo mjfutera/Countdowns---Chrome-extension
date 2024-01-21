@@ -178,6 +178,8 @@ input, textarea             {width: 200px;}
     transform: rotate(5deg);transform-origin: center center;
 }
 
+.width-100p                 {max-width:100%}
+
 /* Animations */
 
 @keyframes pulse {
